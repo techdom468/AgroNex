@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-background-light text-gray-900 transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-background-dark text-gray-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Premium Glassmorphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/40 shadow-soft;
+  }
+  
+  .dark .glass {
+    @apply bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 shadow-none;
+  }
+
+  /* Card Hover Effect */
+  .hover-card {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-500/10;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 hover:bg-gray-600;
+  }
+}
