@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, Bell, Search, Moon, Sun } from 'lucide-react';
+import React from 'react';
+import { Menu, Bell, Search } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 const DashboardHeader = ({ setIsSidebarOpen }) => {
   const { user } = useAuth();
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  useEffect(() => {
-    if (document.documentElement.classList.contains('dark')) {
-      setIsDarkMode(true);
-    } else {
-      setIsDarkMode(false);
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('dark');
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDarkMode(true);
-    }
-  };
 
   return (
     <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30">
@@ -47,15 +28,7 @@ const DashboardHeader = ({ setIsSidebarOpen }) => {
       </div>
 
       <div className="flex items-center gap-3 sm:gap-5">
-        {/* Theme Toggle */}
-        <button 
-          onClick={toggleTheme}
-          className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
-
-        {/* Notifications */}
+{/* Notifications */}
         <button className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative">
           <Bell size={20} />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
