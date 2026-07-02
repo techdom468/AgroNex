@@ -13,6 +13,8 @@ import DashboardHome from './pages/dashboard/DashboardHome';
 import CropRecommendation from './pages/dashboard/CropRecommendation';
 import DiseaseDetection from './pages/dashboard/DiseaseDetection';
 import PredictionHistory from './pages/dashboard/PredictionHistory';
+import Profile from './pages/dashboard/Profile';
+import GovernmentSchemes from './pages/dashboard/GovernmentSchemes';
 
 import WeatherDashboard from './pages/dashboard/WeatherDashboard';
 
@@ -62,7 +64,8 @@ function App() {
                 <Route path="disease-ai" element={<DiseaseDetection />} />
                 <Route path="disease-history" element={<PredictionHistory />} />
                 <Route path="weather" element={<WeatherDashboard />} />
-                <Route path="profile" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Profile Page (Coming Soon)</h1></div>} />
+                <Route path="schemes" element={<GovernmentSchemes />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Page under construction</h1></div>} />
               </Route>
             </Routes>

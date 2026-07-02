@@ -72,6 +72,25 @@ class AuthService:
             "email": user['email'],
             "full_name": user.get('full_name'),
             "role": user.get('role', 'farmer'),
+            "state": user.get('state', ''),
+            "district": user.get('district', ''),
+            "main_crop": user.get('main_crop', ''),
+            "farm_size": user.get('farm_size', ''),
             "created_at": user.get('created_at')
         }
         return True, "Profile fetched successfully", user_info
+
+    @staticmethod
+    def update_user_profile(user_id, profile_data):
+        """
+        Updates the farmer profile fields (state, district, main_crop, farm_size).
+        """
+        if not profile_data:
+            return False, "No profile data provided", None
+
+        success = UserRepository.update_profile(user_id, profile_data)
+        if not success:
+            return False, "Failed to update profile", None
+
+        # Return updated profile
+        return AuthService.get_user_profile(user_id)

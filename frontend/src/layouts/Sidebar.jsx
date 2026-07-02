@@ -21,7 +21,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { title: 'Agriculture News', path: '/dashboard/news', icon: <Newspaper size={20} /> },
     { title: 'AI Chatbot', path: '/dashboard/chat', icon: <MessageSquare size={20} /> },
     { title: 'Profit Calculator', path: '/dashboard/calculator', icon: <Calculator size={20} /> },
-    { title: 'Prediction History', path: '/dashboard/history', icon: <History size={20} /> },
+    { title: 'Prediction History', path: '/dashboard/disease-history', icon: <History size={20} /> },
     { title: 'Settings', path: '/dashboard/settings', icon: <Settings size={20} /> },
   ];
 

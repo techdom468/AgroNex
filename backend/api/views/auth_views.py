@@ -56,3 +56,30 @@ def get_me(request):
         return api_response(success=False, message=message, errors={"error": message}, status_code=status.HTTP_404_NOT_FOUND)
         
     return api_response(success=True, message=message, data=result, status_code=status.HTTP_200_OK)
+
+
+@api_view(['PUT'])
+@jwt_required
+def update_profile(request):
+    """
+    Update farmer profile (state, district, main_crop, farm_size).
+    """
+    user_id = request.user_payload.get('user_id')
+    data = request.data
+
+    profile_data = {
+        'state': data.get('state'),
+        'district': data.get('district'),
+        'main_crop': data.get('main_crop'),
+        'farm_size': data.get('farm_size'),
+        'full_name': data.get('full_name'),
+    }
+    # Remove None values
+    profile_data = {k: v for k, v in profile_data.items() if v is not None}
+
+    success, message, result = AuthService.update_user_profile(user_id, profile_data)
+
+    if not success:
+        return api_response(success=False, message=message, errors={"error": message}, status_code=status.HTTP_400_BAD_REQUEST)
+
+    return api_response(success=True, message=message, data=result, status_code=status.HTTP_200_OK)
