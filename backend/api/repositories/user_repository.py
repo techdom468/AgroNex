@@ -35,3 +35,33 @@ class UserRepository:
             result = collection.insert_one(user_data)
             return result.inserted_id
         return None
+
+    @classmethod
+    def update_profile(cls, user_id, profile_data):
+        """
+        Updates farmer profile fields (state, district, main_crop, farm_size).
+        Only updates allowed fields to prevent injection.
+        """
+        collection = cls.get_collection()
+        if collection is None:
+            return False
+
+        allowed_fields = ['state', 'district', 'main_crop', 'farm_size', 'full_name']
+        update_data = {}
+        for key, val in profile_data.items():
+            if key in allowed_fields and val is not None:
+                update_data[key] = val
+
+        if not update_data:
+            return False
+
+        update_data['updated_at'] = datetime.datetime.now(datetime.timezone.utc)
+
+        try:
+            result = collection.update_one(
+                {"_id": ObjectId(user_id)},
+                {"$set": update_data}
+            )
+            return result.modified_count > 0
+        except Exception:
+            return False

@@ -13,6 +13,7 @@ import DashboardHome from './pages/dashboard/DashboardHome';
 import CropRecommendation from './pages/dashboard/CropRecommendation';
 import DiseaseDetection from './pages/dashboard/DiseaseDetection';
 import PredictionHistory from './pages/dashboard/PredictionHistory';
+
 import WeatherDashboard from './pages/dashboard/WeatherDashboard';
 import MarketIntelligence from './pages/dashboard/MarketIntelligence';
 
@@ -47,28 +48,27 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              
+
               {/* Protected Dashboard Routes */}
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <DashboardLayout />
                   </ProtectedRoute>
-                } 
+                }
               >
                 <Route index element={<DashboardHome />} />
                 <Route path="crop-recommendation" element={<CropRecommendation />} />
                 <Route path="disease-ai" element={<DiseaseDetection />} />
                 <Route path="disease-history" element={<PredictionHistory />} />
                 <Route path="weather" element={<WeatherDashboard />} />
-                <Route path="market" element={<MarketIntelligence />} />
                 <Route path="profile" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Profile Page (Coming Soon)</h1></div>} />
                 <Route path="*" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Page under construction</h1></div>} />
               </Route>
             </Routes>
           </main>
-          
+
           <Routes>
             <Route path="/" element={<Footer />} />
             <Route path="/login" element={<Footer />} />
