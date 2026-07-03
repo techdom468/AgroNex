@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Leaf, User, Moon, Sun } from 'lucide-react';
+import { Menu, X, Leaf, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import Button from '../components/ui/Button';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const location = useLocation();
   const { user, logout } = useAuth();
   
@@ -18,24 +17,9 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
-    
-    // Check initial theme
-    if (document.documentElement.classList.contains('dark')) {
-      setIsDarkMode(true);
-    }
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('dark');
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDarkMode(true);
-    }
-  };
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -79,14 +63,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth Buttons & Theme Toggle */}
+          {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <button 
-              onClick={toggleTheme} 
-              className="p-2 text-gray-500 hover:text-primary-500 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
             
             {user ? (
               <div className="flex items-center gap-4">
@@ -110,14 +88,8 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile menu button & Theme toggle */}
+          {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <button 
-              onClick={toggleTheme} 
-              className="p-2 text-gray-500 hover:text-primary-500 transition-colors"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-gray-500 hover:text-gray-700 focus:outline-none"

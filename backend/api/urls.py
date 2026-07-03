@@ -8,4 +8,5 @@ urlpatterns = [
     path('crop-ai/', include('api.crop_ai.urls')),
     path('disease/', include('api.disease_ai.urls')),
     path('weather/', include('api.weather.urls')),
+    path('market/', include('api.market.urls')),
 ]
