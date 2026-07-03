@@ -16,6 +16,7 @@ import PredictionHistory from './pages/dashboard/PredictionHistory';
 
 import WeatherDashboard from './pages/dashboard/WeatherDashboard';
 import MarketIntelligence from './pages/dashboard/MarketIntelligence';
+import GovernmentSchemes from './pages/dashboard/GovernmentSchemes';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -63,6 +64,8 @@ function App() {
                 <Route path="disease-ai" element={<DiseaseDetection />} />
                 <Route path="disease-history" element={<PredictionHistory />} />
                 <Route path="weather" element={<WeatherDashboard />} />
+                <Route path="market" element={<MarketIntelligence />} />
+                <Route path="schemes" element={<GovernmentSchemes />} />
                 <Route path="profile" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Profile Page (Coming Soon)</h1></div>} />
                 <Route path="*" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Page under construction</h1></div>} />
               </Route>
