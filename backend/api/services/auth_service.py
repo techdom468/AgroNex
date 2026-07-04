@@ -31,12 +31,7 @@ class AuthService:
             
         token = generate_jwt(user_id, role)
         
-        user_info = {
-            "id": str(user_id),
-            "email": email,
-            "full_name": full_name,
-            "role": role
-        }
+        _, _, user_info = AuthService.get_user_profile(user_id)
         
         return True, "User registered successfully", {"token": token, "user": user_info}
 
@@ -54,12 +49,7 @@ class AuthService:
             
         token = generate_jwt(user['_id'], user.get('role', 'farmer'))
         
-        user_info = {
-            "id": str(user['_id']),
-            "email": user['email'],
-            "full_name": user.get('full_name'),
-            "role": user.get('role', 'farmer')
-        }
+        _, _, user_info = AuthService.get_user_profile(user['_id'])
         
         return True, "Login successful", {"token": token, "user": user_info}
 
