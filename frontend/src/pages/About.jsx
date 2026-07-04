@@ -54,7 +54,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12">
       {/* Hero Section */}
       <section className="relative overflow-hidden mb-20">
         <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-900/10 z-0"></div>
@@ -78,7 +78,7 @@ const About = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <Card className="h-full p-8 border-t-4 border-t-primary-500 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+            <Card className="h-full p-8 border-t-4 border-t-primary-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h2>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 To empower farmers with accessible AI technology, ultimately increasing crop productivity, reducing unexpected losses due to diseases, and providing accurate recommendations that ensure food security and financial stability.
@@ -86,7 +86,7 @@ const About = () => {
             </Card>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <Card className="h-full p-8 border-t-4 border-t-secondary-500 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+            <Card className="h-full p-8 border-t-4 border-t-secondary-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Vision</h2>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Pioneering the future of digital and sustainable agriculture through smart decision-support systems. We envision a world where every farmer, regardless of scale, has an AI agronomist in their pocket.
@@ -97,7 +97,7 @@ const About = () => {
       </section>
 
       {/* What AgroNex Offers */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16 bg-white dark:bg-gray-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">What AgroNex Offers</h2>
@@ -128,7 +128,7 @@ const About = () => {
         <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-primary-500 before:to-secondary-500">
           {["Register", "Complete Profile", "Use AI Features", "Receive Smart Recommendations", "Improve Farming Decisions"].map((step, idx) => (
             <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-gray-950 bg-primary-500 text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-gray-900 bg-primary-500 text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow">
                 {idx + 1}
               </div>
               <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl bg-white dark:bg-gray-900 shadow-sm border border-gray-100 dark:border-gray-800">
@@ -140,7 +140,7 @@ const About = () => {
       </section>
 
       {/* Technology Stack & Why Choose Us */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16 bg-white dark:bg-gray-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
@@ -178,28 +178,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Footer CTA */}
-      <section className="py-20 relative overflow-hidden mt-12">
-        <div className="absolute inset-0 bg-primary-600 z-0"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full max-h-96 bg-primary-500 rounded-full blur-[120px] opacity-50 z-0"></div>
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to transform farming?</h2>
-          <p className="text-primary-100 text-lg mb-10">Sign up today and experience the future of digital agriculture.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/register">
-              <Button size="lg" className="bg-white text-primary-700 hover:bg-gray-100 border-none shadow-xl">
-                Register Now
-              </Button>
-            </Link>
-            <Link to="/#features">
-              <Button size="lg" className="bg-transparent text-white border-white hover:bg-white/10">
-                Explore Features <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

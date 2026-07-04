@@ -46,7 +46,7 @@ class UserRepository:
         if collection is None:
             return False
 
-        allowed_fields = ['state', 'district', 'main_crop', 'farm_size', 'full_name']
+        allowed_fields = ['state', 'district', 'main_crop', 'farm_size', 'full_name', 'mobile', 'soil_type', 'profile_image']
         update_data = {}
         for key, val in profile_data.items():
             if key in allowed_fields and val is not None:
@@ -62,6 +62,56 @@ class UserRepository:
                 {"_id": ObjectId(user_id)},
                 {"$set": update_data}
             )
-            return result.modified_count > 0
+            # matched_count > 0 means user was found and update was attempted
+            # even if no fields changed (modified_count == 0), that's still success
+            return result.matched_count > 0
+        except Exception:
+            return False
+
+    @classmethod
+    def set_reset_token(cls, user_id, token, expiry):
+        collection = cls.get_collection()
+        if collection is None:
+            return False
+        
+        try:
+            result = collection.update_one(
+                {"_id": ObjectId(user_id)},
+                {"$set": {
+                    "reset_token": token,
+                    "reset_token_expiry": expiry
+                }}
+            )
+            return result.matched_count > 0
+        except Exception:
+            return False
+
+    @classmethod
+    def find_by_reset_token(cls, token):
+        collection = cls.get_collection()
+        if collection is not None:
+            now = datetime.datetime.now(datetime.timezone.utc)
+            # Find user with matching token and expiry > now
+            return collection.find_one({
+                "reset_token": token,
+                "reset_token_expiry": {"$gt": now}
+            })
+        return None
+
+    @classmethod
+    def update_password(cls, user_id, hashed_password):
+        collection = cls.get_collection()
+        if collection is None:
+            return False
+        
+        try:
+            result = collection.update_one(
+                {"_id": ObjectId(user_id)},
+                {
+                    "$set": {"password_hash": hashed_password},
+                    "$unset": {"reset_token": "", "reset_token_expiry": ""}
+                }
+            )
+            return result.matched_count > 0
         except Exception:
             return False

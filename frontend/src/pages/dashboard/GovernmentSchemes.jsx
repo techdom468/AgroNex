@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import schemesService from '../../services/schemesService';
 import SchemeCard from '../../components/Schemes/SchemeCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, RefreshCw, AlertCircle, Loader2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const GovernmentSchemes = () => {
   const { user } = useContext(AuthContext);
@@ -25,9 +25,13 @@ const GovernmentSchemes = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [systemStatus, setSystemStatus] = useState(null);
 
-  // Pagination for all schemes
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // Read ?open=schemeId from URL (from dashboard "Read More" button)
+  const [searchParams] = useSearchParams();
+  const openSchemeId = searchParams.get('open');
+  const schemeRefs = useRef({});
 
   const categories = [
     'Financial Assistance',
@@ -125,6 +129,19 @@ const GovernmentSchemes = () => {
     fetchAllSchemes();
   }, [page]);
 
+  // Auto-scroll to the highlighted scheme when data is ready
+  useEffect(() => {
+    if (openSchemeId && !loadingRecommended && !loadingAll) {
+      // Small delay to let the DOM render
+      setTimeout(() => {
+        const el = schemeRefs.current[openSchemeId];
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 400);
+    }
+  }, [openSchemeId, loadingRecommended, loadingAll]);
+
   const handleRefresh = async () => {
     if (user?.role !== 'admin') return;
     setRefreshing(true);
@@ -204,7 +221,13 @@ const GovernmentSchemes = () => {
         ) : recommendedSchemes.length > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {recommendedSchemes.map(scheme => (
-              <SchemeCard key={`rec-${scheme.schemeId}`} scheme={scheme} recommended={true} />
+              <div key={`rec-${scheme.schemeId}`} ref={el => schemeRefs.current[scheme.schemeId] = el}>
+                <SchemeCard
+                  scheme={scheme}
+                  recommended={true}
+                  defaultExpanded={openSchemeId === scheme.schemeId}
+                />
+              </div>
             ))}
           </div>
         ) : (
@@ -324,7 +347,13 @@ const GovernmentSchemes = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {allSchemes.map(scheme => (
-                <SchemeCard key={`all-${scheme.schemeId}`} scheme={scheme} recommended={false} />
+                <div key={`all-${scheme.schemeId}`} ref={el => schemeRefs.current[scheme.schemeId] = el}>
+                  <SchemeCard
+                    scheme={scheme}
+                    recommended={false}
+                    defaultExpanded={openSchemeId === scheme.schemeId}
+                  />
+                </div>
               ))}
             </div>
 

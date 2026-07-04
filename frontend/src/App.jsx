@@ -11,6 +11,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import CropRecommendation from './pages/dashboard/CropRecommendation';
 import DiseaseDetection from './pages/dashboard/DiseaseDetection';
@@ -47,6 +49,8 @@ function App() {
             <Route path="/contact" element={<Navbar />} />
             <Route path="/login" element={<Navbar />} />
             <Route path="/register" element={<Navbar />} />
+            <Route path="/forgot-password" element={<Navbar />} />
+            <Route path="/reset-password" element={<Navbar />} />
           </Routes>
 
           <main className="flex-grow">
@@ -56,6 +60,8 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
 
               {/* Protected Dashboard Routes */}
               <Route
@@ -85,6 +91,8 @@ function App() {
             <Route path="/contact" element={<Footer />} />
             <Route path="/login" element={<Footer />} />
             <Route path="/register" element={<Footer />} />
+            <Route path="/forgot-password" element={<Footer />} />
+            <Route path="/reset-password" element={<Footer />} />
           </Routes>
         </div>
       </Router>

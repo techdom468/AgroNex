@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
-  LayoutDashboard, User, Sprout, Activity, CloudSun, 
+  LayoutDashboard, User, Sprout, CloudSun, 
   TrendingUp, Landmark, Newspaper, MessageSquare, 
   Calculator, History, Settings, LogOut, X, Leaf, ScanLine
 } from 'lucide-react';

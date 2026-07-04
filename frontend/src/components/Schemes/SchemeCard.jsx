@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ChevronDown, CheckCircle, Landmark, Tag, CheckSquare, PlusCircle } from 'lucide-react';
 
-const SchemeCard = ({ scheme, recommended }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const SchemeCard = ({ scheme, recommended, defaultExpanded = false }) => {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   const getCategoryColor = (category) => {
     const colors = {
@@ -24,9 +24,11 @@ const SchemeCard = ({ scheme, recommended }) => {
       animate={{ opacity: 1, y: 0 }}
       layout
       className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border ${
-        recommended 
-          ? 'border-green-400 dark:border-green-500 shadow-md shadow-green-100 dark:shadow-none' 
-          : 'border-gray-200 dark:border-gray-700 shadow-sm'
+        defaultExpanded
+          ? 'border-green-500 dark:border-green-400 ring-2 ring-green-400/40 shadow-lg shadow-green-100 dark:shadow-none'
+          : recommended 
+            ? 'border-green-400 dark:border-green-500 shadow-md shadow-green-100 dark:shadow-none' 
+            : 'border-gray-200 dark:border-gray-700 shadow-sm'
       } flex flex-col`}
     >
       {recommended && (
