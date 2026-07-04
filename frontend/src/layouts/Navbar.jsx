@@ -24,8 +24,8 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Features', path: '/#features' },
-    { name: 'About', path: '/#about' },
-    { name: 'Contact', path: '/#contact' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
@@ -51,15 +51,15 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a 
+              <Link 
                 key={link.name}
-                href={link.path}
+                to={link.path}
                 className={`text-sm font-medium transition-colors hover:text-primary-500 ${
                   isScrolled || !isHomePage ? 'text-gray-600 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'
                 }`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -105,14 +105,14 @@ const Navbar = () => {
         <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 absolute w-full">
           <div className="px-4 pt-2 pb-6 space-y-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.path}
+                to={link.path}
                 className="block px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col gap-3">
               {user ? (

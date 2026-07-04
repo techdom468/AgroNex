@@ -7,6 +7,8 @@ import DashboardLayout from './layouts/DashboardLayout';
 
 // Pages
 import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardHome from './pages/dashboard/DashboardHome';
@@ -41,6 +43,8 @@ function App() {
         <div className="flex flex-col min-h-screen">
           <Routes>
             <Route path="/" element={<Navbar />} />
+            <Route path="/about" element={<Navbar />} />
+            <Route path="/contact" element={<Navbar />} />
             <Route path="/login" element={<Navbar />} />
             <Route path="/register" element={<Navbar />} />
           </Routes>
@@ -48,6 +52,8 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
@@ -75,6 +81,8 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Footer />} />
+            <Route path="/about" element={<Footer />} />
+            <Route path="/contact" element={<Footer />} />
             <Route path="/login" element={<Footer />} />
             <Route path="/register" element={<Footer />} />
           </Routes>
