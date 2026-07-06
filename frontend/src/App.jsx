@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import ChatPage from './pages/ChatPage';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import CropRecommendation from './pages/dashboard/CropRecommendation';
 import DiseaseDetection from './pages/dashboard/DiseaseDetection';
@@ -62,6 +63,13 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              
+              {/* AI Chat Route */}
+              <Route path="/chat" element={
+                <ProtectedRoute>
+                  <ChatPage />
+                </ProtectedRoute>
+              } />
 
               {/* Protected Dashboard Routes */}
               <Route
@@ -80,6 +88,8 @@ function App() {
                 <Route path="market" element={<MarketIntelligence />} />
                 <Route path="schemes" element={<GovernmentSchemes />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="chat" element={<ChatPage />} />
+                <Route path="chatbot" element={<ChatPage />} />
                 <Route path="*" element={<div className="p-8"><h1 className="text-2xl font-bold dark:text-white">Page under construction</h1></div>} />
               </Route>
             </Routes>

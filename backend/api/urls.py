@@ -6,6 +6,7 @@ from .views.auth_views import (
 )
 from .views.contact_views import contact_submit
 from .views.dashboard_views import get_dashboard_summary, get_recent_activity
+from .views.chat_views import chat_with_ai, get_chat_history, delete_chat_history
 
 urlpatterns = [
     # Auth
@@ -20,6 +21,11 @@ urlpatterns = [
     path('profile/', get_profile, name='get_profile'),
     path('profile/update/', profile_update, name='profile_update'),
     path('profile/upload-image/', upload_profile_image, name='upload_profile_image'),
+
+    # Chat API
+    path('chat/', chat_with_ai, name='chat_with_ai'),
+    path('chat/history/', get_chat_history, name='get_chat_history'),
+    path('chat/history/delete/', delete_chat_history, name='delete_chat_history'),
 
     # Other features
     path('crop-ai/', include('api.crop_ai.urls')),
