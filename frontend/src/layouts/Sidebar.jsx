@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, User, Sprout, CloudSun, 
-  TrendingUp, Landmark, Newspaper, MessageSquare, 
-  Calculator, History, Settings, LogOut, X, Leaf, ScanLine
+  TrendingUp, Landmark, MessageSquare, 
+  History, LogOut, X, Leaf, ScanLine
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
@@ -18,11 +18,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { title: 'Weather Forecast', path: '/dashboard/weather', icon: <CloudSun size={20} /> },
     { title: 'Market Prices', path: '/dashboard/market', icon: <TrendingUp size={20} /> },
     { title: 'Govt Schemes', path: '/dashboard/schemes', icon: <Landmark size={20} /> },
-    { title: 'Agriculture News', path: '/dashboard/news', icon: <Newspaper size={20} /> },
     { title: 'AI Chatbot', path: '/dashboard/chat', icon: <MessageSquare size={20} /> },
-    { title: 'Profit Calculator', path: '/dashboard/calculator', icon: <Calculator size={20} /> },
     { title: 'Prediction History', path: '/dashboard/disease-history', icon: <History size={20} /> },
-    { title: 'Settings', path: '/dashboard/settings', icon: <Settings size={20} /> },
   ];
 
   return (

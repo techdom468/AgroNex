@@ -28,7 +28,7 @@ class MongoDBConnection:
                     serverSelectionTimeoutMS=5000
                 )
                 cls._client.server_info() # Verify connection
-                print("Successfully connected to MongoDB Atlas!")
+                print("Successfully connected to MongoDB (local)!")
             except ConnectionFailure as e:
                 print(f"ERROR: Could not connect to MongoDB: {e}")
                 cls._client = None

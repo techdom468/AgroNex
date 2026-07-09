@@ -10,20 +10,19 @@ load_dotenv(_base.parent.parent.parent / '.env')         # backend/
 
 MONGO_URI = os.getenv("MONGODB_URI") or os.getenv("MONGO_URI")
 
-# Only connect if a real MongoDB Atlas URI is provided
-_is_atlas = MONGO_URI and (MONGO_URI.startswith("mongodb+srv://") or (MONGO_URI.startswith("mongodb://") and "localhost" not in MONGO_URI))
-
+# Connect to MongoDB regardless of whether it's local or Atlas
 try:
-    if _is_atlas:
+    if MONGO_URI:
         client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
         db = client['agronex']
         chat_collection = db['chat_history']
-        print(f"[MongoDB] Connected to Atlas cluster.")
+        print(f"[MongoDB] Chatbot connected to database.")
     else:
-        print("[MongoDB] No Atlas URI found. Chat history will be session-only (in-memory).")
+        print("[MongoDB] No MONGODB_URI found. Chat history will be session-only (in-memory).")
         client = None
         db = None
         chat_collection = None
+
 except Exception as e:
     print(f"[MongoDB] Connection error: {e}")
     client = None
