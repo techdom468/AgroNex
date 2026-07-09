@@ -1,6 +1,8 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import LanguageSelector from '../components/ui/LanguageSelector';
 
 const DashboardHeader = ({ setIsSidebarOpen }) => {
   const { user } = useAuth();
@@ -19,16 +21,19 @@ const DashboardHeader = ({ setIsSidebarOpen }) => {
       </div>
 
       <div className="flex items-center gap-3 sm:gap-5">
+        
+        <LanguageSelector variant="navbar" />
+
         {/* User Avatar */}
-        <div className="flex items-center gap-3 pl-2 sm:pl-4 border-l border-gray-200 dark:border-gray-800">
+        <Link to="/dashboard/profile" className="flex items-center gap-3 pl-2 sm:pl-4 border-l border-gray-200 dark:border-gray-800 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 font-bold text-sm">
             {user?.full_name ? user.full_name.charAt(0).toUpperCase() : 'U'}
           </div>
-          <div className="hidden md:block text-sm">
+          <div className="hidden md:block text-sm text-left">
             <p className="font-medium text-gray-900 dark:text-white">{user?.full_name || 'Farmer'}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">{user?.role || 'Farmer'}</p>
           </div>
-        </div>
+        </Link>
       </div>
     </header>
   );

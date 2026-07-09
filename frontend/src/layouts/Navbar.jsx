@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Leaf, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import Button from '../components/ui/Button';
+import LanguageSelector from '../components/ui/LanguageSelector';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -66,6 +67,8 @@ const Navbar = () => {
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             
+            <LanguageSelector variant="navbar" />
+
             {user ? (
               <div className="flex items-center gap-4">
                 <Link to="/dashboard" className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 transition-colors">
@@ -115,6 +118,7 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col gap-3">
+              <LanguageSelector variant="sidebar" />
               {user ? (
                 <>
                   <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
