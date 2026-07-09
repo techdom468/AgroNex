@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin } from 'lucide-react';
 import { dashboardService } from '../../services/dashboardService';
 import { AuthContext } from '../../context/AuthContext';
 
 // Import New Components
 import WeatherCard from './components/WeatherCard';
 import MarketCard from './components/MarketCard';
-import RecommendationCard from './components/RecommendationCard';
+
 import QuickActions from './components/QuickActions';
 import SchemeCard from './components/SchemeCard';
 
@@ -119,10 +118,6 @@ const DashboardHome = () => {
             Welcome back to AgroNex. Here is your farm summary for today.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800/80 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm backdrop-blur-sm shrink-0">
-          <MapPin size={16} className="text-primary-500" />
-          <span className="font-medium">{location}</span>
-        </div>
       </motion.div>
 
       {/* ── SECTION 2 : Weather + Market + Recommendations ── */}
@@ -134,22 +129,14 @@ const DashboardHome = () => {
           <ErrorBoundary><MarketCard marketData={market} /></ErrorBoundary>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <ErrorBoundary><RecommendationCard recommendations={summary?.recommendations} /></ErrorBoundary>
+          <ErrorBoundary><SchemeCard schemeData={schemes} /></ErrorBoundary>
         </motion.div>
       </div>
 
-      {/* ── SECTION 3 : Quick Actions + Scheme Card ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        <div className="lg:col-span-2">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
-          <ErrorBoundary><QuickActions /></ErrorBoundary>
-        </div>
-        <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Recommended for You</h2>
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-            <ErrorBoundary><SchemeCard schemeData={schemes} /></ErrorBoundary>
-          </motion.div>
-        </div>
+      {/* ── SECTION 3 : Quick Actions ── */}
+      <div className="mt-6">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
+        <ErrorBoundary><QuickActions /></ErrorBoundary>
       </div>
 
 

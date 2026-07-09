@@ -89,8 +89,8 @@ class RecommendationService:
         profile = cls.get_farmer_profile(user_id)
         if not profile:
             # If no profile, return all schemes without personalized scoring
-            schemes, _ = SchemeService.get_all_schemes(page_size=50)
-            return schemes, "No profile found. Showing all schemes."
+            schemes, _ = SchemeService.get_all_schemes(page_size=4)
+            return schemes, "No profile found. Showing popular schemes."
 
         # Get all schemes from DB
         all_schemes, total = SchemeService.get_all_schemes(page_size=100)
@@ -140,4 +140,7 @@ class RecommendationService:
         # Sort by relevance score descending
         scored_schemes.sort(key=lambda x: x.get("_relevance_score", 0), reverse=True)
 
-        return scored_schemes, f"Personalized for {profile.get('state', 'N/A')}, {profile.get('main_crop', 'N/A')}, {profile.get('farm_size', 'N/A')} acres"
+        # Only return the top 4 most highly recommended schemes
+        top_recommendations = scored_schemes[:4]
+
+        return top_recommendations, f"Personalized for {profile.get('state', 'N/A')}, {profile.get('main_crop', 'N/A')}, {profile.get('farm_size', 'N/A')} acres"

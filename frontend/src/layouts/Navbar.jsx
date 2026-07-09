@@ -12,6 +12,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   
   const isHomePage = location.pathname === '/';
+  const isTransparentPage = ['/', '/about', '/contact'].includes(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,19 +32,28 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled || !isHomePage
+      isScrolled || !isTransparentPage
         ? 'bg-white/80 backdrop-blur-md shadow-sm dark:bg-gray-900/80' 
         : 'bg-transparent py-2'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link 
+            to="/" 
+            className="flex items-center gap-2"
+            onClick={(e) => {
+              if (isHomePage) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+          >
             <div className="bg-primary-500 p-1.5 rounded-lg">
               <Leaf className="h-6 w-6 text-white" />
             </div>
             <span className={`text-xl font-heading font-bold ${
-              isScrolled || !isHomePage ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'
+              isScrolled || !isTransparentPage ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'
             }`}>
               Agro<span className="text-primary-500">Nex</span>
             </span>
@@ -52,15 +62,33 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name}
-                to={link.path}
-                className={`text-sm font-medium transition-colors hover:text-primary-500 ${
-                  isScrolled || !isHomePage ? 'text-gray-600 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'
-                }`}
-              >
-                {link.name}
-              </Link>
+              link.name === 'Features' && isHomePage ? (
+                <a 
+                  key={link.name}
+                  href="#features"
+                  className={`text-sm font-medium transition-colors hover:text-primary-500 ${
+                    isScrolled || !isTransparentPage ? 'text-gray-600 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'
+                  }`}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link 
+                  key={link.name}
+                  to={link.path}
+                  onClick={(e) => {
+                    if (link.name === 'Home' && isHomePage) {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
+                  className={`text-sm font-medium transition-colors hover:text-primary-500 ${
+                    isScrolled || !isTransparentPage ? 'text-gray-600 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
           </div>
 
@@ -108,14 +136,31 @@ const Navbar = () => {
         <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 absolute w-full">
           <div className="px-4 pt-2 pb-6 space-y-1">
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="block px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
+              link.name === 'Features' && isHomePage ? (
+                <a
+                  key={link.name}
+                  href="#features"
+                  className="block px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="block px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                  onClick={(e) => {
+                    if (link.name === 'Home' && isHomePage) {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col gap-3">
               <LanguageSelector variant="sidebar" />

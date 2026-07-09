@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   User, Mail, Phone, MapPin, Navigation, Sprout, Layers,
   Maximize, Save, AlertCircle, CheckCircle, Edit3, X, Loader2
@@ -21,6 +21,8 @@ const CROPS = [
   'Potato', 'Maize', 'Sugarcane', 'Onion', 'Soybean',
   'Bajra', 'Jowar', 'Pulses', 'Mustard', 'Sunflower', 'Other',
 ];
+
+
 
 
 // ─── Toast Component ─────────────────────────────────────────────────────────
@@ -44,30 +46,13 @@ const Toast = ({ type, message, onClose }) => {
     >
       {type === 'success' ? <CheckCircle className="w-5 h-5 shrink-0" /> : <AlertCircle className="w-5 h-5 shrink-0" />}
       <span>{message}</span>
-      <button onClick={onClose} className="ml-2 opacity-60 hover:opacity-100">
+      <button type="button" onClick={onClose} className="ml-2 opacity-60 hover:opacity-100">
         <X className="w-4 h-4" />
       </button>
     </motion.div>
   );
 };
 
-// ─── Read-Only Field ─────────────────────────────────────────────────────────
-
-const ReadField = ({ label, value, icon: Icon, placeholder = '—' }) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{label}</label>
-    <div className="relative">
-      {Icon && (
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Icon className="h-5 w-5 text-gray-400" />
-        </div>
-      )}
-      <div className={`${Icon ? 'pl-10' : 'px-4'} block w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 py-2.5 text-sm`}>
-        {value || <span className="text-gray-400 dark:text-gray-500">{placeholder}</span>}
-      </div>
-    </div>
-  </div>
-);
 
 // ─── Main Profile Component ──────────────────────────────────────────────────
 
@@ -83,6 +68,7 @@ const Profile = () => {
     main_crop: '',
     soil_type: '',
     farm_size: '',
+
   });
 
   // ── Saved snapshot for cancel
@@ -118,6 +104,7 @@ const Profile = () => {
         main_crop: user.main_crop || '',
         soil_type: user.soil_type || '',
         farm_size: user.farm_size || '',
+
       };
       setFormData(data);
       setSavedData(data);
@@ -200,78 +187,86 @@ const Profile = () => {
     c.toLowerCase().includes(cropSearch.toLowerCase())
   );
 
-  // ─── Input class helper
   const inputClass = (fieldName) => {
-    const base = 'block w-full rounded-xl border shadow-sm py-2.5 transition-colors duration-200 text-sm';
-    const editable = 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-green-500 focus:border-green-500 focus:outline-none';
-    const readonly = 'bg-gray-50 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 cursor-default';
+    const base = 'block w-full rounded-xl border shadow-sm py-2.5 transition-all duration-200 text-sm';
+    const editable = 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 outline-none';
+    const readonly = 'bg-gray-50/50 dark:bg-gray-800/30 border-gray-100 dark:border-gray-700 cursor-not-allowed text-gray-500';
     const errorBorder = 'border-red-400 dark:border-red-500';
-    const normalBorder = 'border-gray-300 dark:border-gray-600';
-
-    return `${base} ${isEditing ? editable : readonly} ${errors[fieldName] ? errorBorder : normalBorder}`;
+    return `${base} ${isEditing ? editable : readonly} ${errors[fieldName] ? errorBorder : ''}`;
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      {/* Toast */}
-      {toast && (
-        <Toast
-          type={toast.type}
-          message={toast.message}
-          onClose={() => setToast(null)}
-        />
-      )}
+    <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8 pb-20">
+      <AnimatePresence>
+        {toast && (
+          <Toast
+            type={toast.type}
+            message={toast.message}
+            onClose={() => setToast(null)}
+          />
+        )}
+      </AnimatePresence>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className="relative bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden"
       >
-        {/* Header */}
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Your Profile</h1>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Update your farming details to get personalized scheme recommendations and tailored crop AI advice.
-            </p>
-          </div>
-
+        <div className="h-20 md:h-28 bg-gradient-to-r from-primary-500 to-secondary-500 relative">
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay"></div>
         </div>
+        <div className="px-6 sm:px-10 pb-8 flex flex-col sm:flex-row items-center sm:items-end gap-6 -mt-12 sm:-mt-16 relative z-10">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white dark:border-gray-800 bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg shrink-0">
+            <span className="text-4xl sm:text-5xl font-bold text-white">
+              {formData.full_name ? formData.full_name.charAt(0).toUpperCase() : (user?.email?.charAt(0).toUpperCase() || 'F')}
+            </span>
+          </div>
+          <div className="text-center sm:text-left flex-1 mt-4 sm:mt-0">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+              {formData.full_name || 'Farmer Profile'}
+            </h1>
+            <p className="text-primary-600 dark:text-primary-400 font-medium mt-1">{user?.email}</p>
+          </div>
+          
+          <div className="shrink-0 flex gap-3 mt-4 sm:mt-0">
+             {!isEditing && (
+                <button
+                    type="button"
+                    onClick={() => setIsEditing(true)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                  >
+                    <Edit3 className="w-4 h-4" />
+                    Edit Profile
+                </button>
+             )}
+          </div>
+        </div>
+      </motion.div>
 
-        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-          <div className="p-8">
-            <form onSubmit={handleSave} className="space-y-8" noValidate>
-
-              {/* ── Profile Avatar (initials only) ── */}
-              <div className="flex flex-col items-center gap-3 pb-2">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-md">
-                  <span className="text-2xl font-bold text-white">
-                    {formData.full_name ? formData.full_name.charAt(0).toUpperCase() : (user?.email?.charAt(0).toUpperCase() || 'F')}
-                  </span>
-                </div>
-                <div className="text-center">
-                  <p className="text-base font-semibold text-gray-900 dark:text-white">
-                    {formData.full_name || user?.email || 'Farmer'}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
-                </div>
-              </div>
-
-              {/* ── Section 1: Personal Details ── */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                  Personal Details
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Full Name */}
+      <form onSubmit={handleSave} noValidate>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-1"
+          >
+            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 sticky top-24">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-4">
+                <User className="text-primary-500" /> Personal Details
+              </h3>
+              
+              <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Full Name <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <User className="h-5 w-5 text-gray-400" />
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
+                        <User className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       <input
                         type="text"
@@ -290,7 +285,6 @@ const Profile = () => {
                     )}
                   </div>
 
-                  {/* Email — always read-only */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Email Address
@@ -303,20 +297,19 @@ const Profile = () => {
                         type="email"
                         value={user?.email || ''}
                         disabled
-                        className="pl-10 block w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 shadow-sm py-2.5 cursor-not-allowed text-sm"
+                        className="pl-10 block w-full rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 text-gray-500 py-2.5 cursor-not-allowed text-sm"
                       />
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">Email cannot be changed</p>
+                    <p className="mt-1 text-xs text-gray-400">Email cannot be changed.</p>
                   </div>
 
-                  {/* Mobile */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Mobile Number <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Phone className="h-5 w-5 text-gray-400" />
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
+                        <Phone className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       <input
                         type="tel"
@@ -335,24 +328,29 @@ const Profile = () => {
                       </p>
                     )}
                   </div>
-                </div>
               </div>
+            </div>
+          </motion.div>
 
-              {/* ── Section 2: Farm Details ── */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                  Farm Details
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* State */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-2 space-y-6"
+          >
+            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-4">
+                <Sprout className="text-secondary-500" /> Farm Details
+              </h3>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       State <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <MapPin className="h-5 w-5 text-gray-400" />
+                        <MapPin className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       <input
                         type="text"
@@ -371,14 +369,13 @@ const Profile = () => {
                     )}
                   </div>
 
-                  {/* District */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       District <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Navigation className="h-5 w-5 text-gray-400" />
+                        <Navigation className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       <input
                         type="text"
@@ -397,14 +394,13 @@ const Profile = () => {
                     )}
                   </div>
 
-                  {/* Main Crop — Searchable Dropdown */}
                   <div className="relative">
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Main Crop <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                        <Sprout className="h-5 w-5 text-gray-400" />
+                        <Sprout className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       <input
                         type="text"
@@ -417,14 +413,16 @@ const Profile = () => {
                           if (errors.main_crop) setErrors(prev => ({ ...prev, main_crop: '' }));
                         }}
                         onFocus={() => isEditing && setShowCropDropdown(true)}
-                        onBlur={() => setTimeout(() => setShowCropDropdown(false), 150)}
+                        onBlur={() => setTimeout(() => setShowCropDropdown(false), 200)}
                         readOnly={!isEditing}
                         className={`pl-10 ${inputClass('main_crop')}`}
                         placeholder="Search crop..."
                       />
-                      {/* Dropdown */}
                       {isEditing && showCropDropdown && filteredCrops.length > 0 && (
-                        <ul className="absolute z-30 left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+                        <motion.ul 
+                          initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+                          className="absolute z-30 left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-xl max-h-48 overflow-y-auto"
+                        >
                           {filteredCrops.map(crop => (
                             <li
                               key={crop}
@@ -433,14 +431,12 @@ const Profile = () => {
                                 setFormData(prev => ({ ...prev, main_crop: crop }));
                                 setShowCropDropdown(false);
                               }}
-                              className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-green-50 dark:hover:bg-green-900/30 text-gray-700 dark:text-gray-200 transition-colors ${
-                                formData.main_crop === crop ? 'bg-green-50 dark:bg-green-900/20 font-medium text-green-700 dark:text-green-400' : ''
-                              }`}
+                              className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-primary-50 dark:hover:bg-primary-900/30 text-gray-700 dark:text-gray-200 transition-colors ${formData.main_crop === crop ? 'bg-primary-50 dark:bg-primary-900/20 font-medium text-primary-700 dark:text-primary-400' : ''}`}
                             >
                               {crop}
                             </li>
                           ))}
-                        </ul>
+                        </motion.ul>
                       )}
                     </div>
                     {errors.main_crop && (
@@ -450,14 +446,13 @@ const Profile = () => {
                     )}
                   </div>
 
-                  {/* Soil Type — Dropdown */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Soil Type
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Layers className="h-5 w-5 text-gray-400" />
+                        <Layers className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       {isEditing ? (
                         <select
@@ -472,21 +467,22 @@ const Profile = () => {
                           ))}
                         </select>
                       ) : (
-                        <div className="pl-10 block w-full rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 py-2.5 text-sm">
-                          {formData.soil_type || <span className="text-gray-400 dark:text-gray-500">—</span>}
+                        <div className="pl-10 block w-full rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 text-gray-700 dark:text-gray-300 py-2.5 text-sm">
+                          {formData.soil_type || <span className="text-gray-400">—</span>}
                         </div>
                       )}
                     </div>
                   </div>
 
-                  {/* Farm Size */}
+
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Farm Size (acres)
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Maximize className="h-5 w-5 text-gray-400" />
+                        <Maximize className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                       </div>
                       <input
                         type="number"
@@ -506,61 +502,42 @@ const Profile = () => {
                       </p>
                     )}
                   </div>
-                </div>
+
               </div>
+            </div>
 
-              {/* ── Action Buttons ── */}
-              <div className="pt-2 flex flex-wrap justify-end gap-3">
-                {isEditing ? (
-                  <>
-                    {/* Cancel — only shown if profile was already saved */}
-                    {isProfileComplete && (
-                      <button
-                        type="button"
-                        onClick={handleCancel}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
-                      >
-                        <X className="w-4 h-4" />
-                        Cancel
-                      </button>
-                    )}
-
-                    {/* Save / Save Changes */}
+            <AnimatePresence>
+              {isEditing && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-primary-100 dark:border-primary-900/50 p-5 flex flex-wrap justify-end items-center gap-4"
+                >
+                  {isProfileComplete && (
                     <button
-                      type="submit"
-                      disabled={isSaving}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-sm transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                      type="button"
+                      onClick={handleCancel}
+                      className="px-6 py-2.5 rounded-xl font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
-                      {isSaving ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Saving...
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-4 h-4" />
-                          {isProfileComplete ? 'Save Changes' : 'Save Profile'}
-                        </>
-                      )}
+                      Cancel
                     </button>
-                  </>
-                ) : (
-                  /* Read-only mode → Edit Profile button in footer */
+                  )}
                   <button
-                    type="button"
-                    onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-sm transition-colors"
+                    type="submit"
+                    disabled={isSaving}
+                    className="inline-flex items-center gap-2 px-8 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 shadow-md transition-all hover:shadow-lg disabled:opacity-70 hover:-translate-y-0.5"
                   >
-                    <Edit3 className="w-4 h-4" />
-                    Edit Profile
+                    {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
+                    {isProfileComplete ? 'Save Changes' : 'Save Profile'}
                   </button>
-                )}
-              </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
 
-            </form>
-          </div>
         </div>
-      </motion.div>
+      </form>
     </div>
   );
 };

@@ -89,11 +89,11 @@ const Home = () => {
                   Start for free <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/features">
+              <a href="#features">
                 <Button variant="outline" size="lg" className="w-full sm:w-auto bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
                   Explore Features
                 </Button>
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
         </div>

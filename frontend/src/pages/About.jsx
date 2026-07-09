@@ -16,29 +16,6 @@ const About = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
-  const offerings = [
-    {
-      icon: <Leaf className="h-8 w-8 text-green-500" />,
-      title: "Crop Recommendation",
-      description: "AI-driven personalized crop suggestions tailored for your unique soil and micro-climate."
-    },
-    {
-      icon: <BrainCircuit className="h-8 w-8 text-purple-500" />,
-      title: "Disease Detection",
-      description: "Upload a picture and instantly identify plant diseases with precise treatment recommendations."
-    },
-    {
-      icon: <Globe className="h-8 w-8 text-blue-500" />,
-      title: "Weather Forecast",
-      description: "Get hyper-local, real-time agricultural weather forecasts to plan your farming operations."
-    },
-    {
-      icon: <Cpu className="h-8 w-8 text-orange-500" />,
-      title: "Market Price Analysis",
-      description: "Predict future crop prices and analyze current market trends for maximum profitability."
-    }
-  ];
-
   const technologies = [
     { icon: <Database className="h-8 w-8 text-blue-400" />, name: "React & Tailwind", desc: "Modern, responsive frontend" },
     { icon: <Server className="h-8 w-8 text-green-600" />, name: "Django REST API", desc: "Robust and secure backend" },
@@ -54,12 +31,15 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-12">
       {/* Hero Section */}
-      <section className="relative overflow-hidden mb-20">
+      <section className="relative overflow-hidden pt-32 pb-16 mb-20">
         <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 to-transparent dark:from-primary-900/10 z-0"></div>
+        <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[800px] h-[800px] bg-primary-400/20 rounded-full blur-3xl opacity-50 dark:opacity-20 z-0 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-secondary-400/20 rounded-full blur-3xl opacity-50 dark:opacity-20 z-0 pointer-events-none"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.div initial="hidden" animate="visible" variants={containerVariants} className="max-w-4xl mx-auto py-16">
+          <motion.div initial="hidden" animate="visible" variants={containerVariants} className="max-w-4xl mx-auto">
             <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">AgroNex</span>
             </motion.h1>
@@ -93,29 +73,6 @@ const About = () => {
               </p>
             </Card>
           </motion.div>
-        </div>
-      </section>
-
-      {/* What AgroNex Offers */}
-      <section className="py-16 bg-white dark:bg-gray-800/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">What AgroNex Offers</h2>
-            <p className="text-gray-600 dark:text-gray-400">Comprehensive tools for modern, smart farming.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {offerings.map((item, idx) => (
-              <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}>
-                <Card hoverable className="h-full text-center p-6 border-gray-100 dark:border-gray-800">
-                  <div className="mx-auto bg-gray-50 dark:bg-gray-800 w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                    {item.icon}
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{item.description}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
