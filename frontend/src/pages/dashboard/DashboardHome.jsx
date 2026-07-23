@@ -129,7 +129,7 @@ const DashboardHome = () => {
           <ErrorBoundary><MarketCard marketData={market} /></ErrorBoundary>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <ErrorBoundary><SchemeCard schemeData={schemes} /></ErrorBoundary>
+          <ErrorBoundary><SchemeCard schemeData={schemes} user={user} /></ErrorBoundary>
         </motion.div>
       </div>
 

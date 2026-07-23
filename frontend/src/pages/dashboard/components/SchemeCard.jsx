@@ -4,7 +4,22 @@ import Button from '../../../components/ui/Button';
 import { Landmark, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const SchemeCard = ({ schemeData }) => {
+const SchemeCard = ({ schemeData, user }) => {
+  const isProfileIncomplete = user && (!user.state || !user.district || !user.main_crop);
+
+  if (isProfileIncomplete) {
+    return (
+      <Card className="p-6 h-full border-l-4 border-l-purple-500 flex flex-col justify-center items-center text-center">
+        <Landmark className="text-gray-300 dark:text-gray-600 mb-3" size={32} />
+        <h3 className="text-gray-900 dark:text-white font-semibold mb-1">Profile Incomplete</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Complete your profile to get personalized scheme recommendations.</p>
+        <Link to="/dashboard/profile">
+          <Button variant="outline" className="text-xs py-1.5 px-4 h-auto">Go to Profile</Button>
+        </Link>
+      </Card>
+    );
+  }
+
   if (!schemeData) return (
     <Card className="p-6 h-full flex items-center justify-center bg-white/50 dark:bg-gray-900/50">
        <div className="animate-pulse flex items-center gap-4">

@@ -34,29 +34,26 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Features</h3>
             <ul className="space-y-3">
-              <li><Link to="/features/crop" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Crop Recommendation</Link></li>
-              <li><Link to="/features/disease" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Disease Detection</Link></li>
-              <li><Link to="/features/market" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Market Prices</Link></li>
-              <li><Link to="/features/weather" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Weather Forecast</Link></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Crop Recommendation</a></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Disease Detection</a></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Market Prices</a></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Weather Forecast</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><Link to="/about" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">About Us</Link></li>
-              <li><Link to="/contact" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Contact</Link></li>
-              <li><Link to="/careers" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Careers</Link></li>
-              <li><Link to="/blog" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Blog</Link></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">About Us</a></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Contact</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Legal</h3>
             <ul className="space-y-3">
-              <li><Link to="/privacy" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Terms of Service</Link></li>
-              <li><Link to="/cookies" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Cookie Policy</Link></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Privacy Policy</a></li>
+              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Terms of Service</a></li>
             </ul>
           </div>
         </div>
@@ -65,11 +62,6 @@ const Footer = () => {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             &copy; {currentYear} AgroNex. All rights reserved.
           </p>
-          <div className="flex items-center space-x-2 mt-4 md:mt-0 text-sm text-gray-500 dark:text-gray-400">
-            <span>Made with</span>
-            <span className="text-red-500">♥</span>
-            <span>for Farmers</span>
-          </div>
         </div>
       </div>
     </footer>
