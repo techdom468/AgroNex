@@ -23,10 +23,10 @@ const Footer = () => {
               Smart farming solutions powered by AI. Empowering farmers with technology for a better yield and sustainable future.
             </p>
             <div className="flex space-x-4 text-gray-400">
-              <a href="#" className="hover:text-primary-500 transition-colors"><Globe size={20} /></a>
-              <a href="#" className="hover:text-primary-500 transition-colors"><MessageCircle size={20} /></a>
-              <a href="#" className="hover:text-primary-500 transition-colors"><Mail size={20} /></a>
-              <a href="#" className="hover:text-primary-500 transition-colors"><Phone size={20} /></a>
+              <a href="/#" className="hover:text-primary-500 transition-colors"><Globe size={20} /></a>
+              <a href="/#" className="hover:text-primary-500 transition-colors"><MessageCircle size={20} /></a>
+              <a href="/#" className="hover:text-primary-500 transition-colors"><Mail size={20} /></a>
+              <a href="/#" className="hover:text-primary-500 transition-colors"><Phone size={20} /></a>
             </div>
           </div>
 
@@ -34,26 +34,26 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Features</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Crop Recommendation</a></li>
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Disease Detection</a></li>
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Market Prices</a></li>
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Weather Forecast</a></li>
+              <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Crop Recommendation</a></li>
+              <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Disease Detection</a></li>
+              <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Market Prices</a></li>
+              <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Weather Forecast</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">About Us</a></li>
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Contact</a></li>
+              <li><Link to="/about" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">About Us</Link></li>
+              <li><Link to="/contact" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Contact</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Legal</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Terms of Service</a></li>
+              <li><a href="/#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Privacy Policy</a></li>
+              <li><a href="/#" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Terms of Service</a></li>
             </ul>
           </div>
         </div>
