@@ -1,119 +1,77 @@
 import React from 'react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
-  Legend,
-  Filler,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+  ResponsiveContainer
+} from 'recharts';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
-
-const MarketChart = ({ data, title, color = '#22c55e' }) => {
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        text: title,
-        color: '#9ca3af',
-        font: {
-          size: 14,
-          family: 'Inter, sans-serif',
-        }
-      },
-      tooltip: {
-        backgroundColor: 'rgba(17, 24, 39, 0.8)',
-        titleColor: '#fff',
-        bodyColor: '#fff',
-        borderColor: color,
-        borderWidth: 1,
-        padding: 10,
-        displayColors: false,
-        callbacks: {
-          label: function(context) {
-            return `₹${context.parsed.y}`;
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-          drawBorder: false,
-        },
-        ticks: {
-          color: '#6b7280',
-        }
-      },
-      y: {
-        grid: {
-          color: 'rgba(255, 255, 255, 0.05)',
-          drawBorder: false,
-        },
-        ticks: {
-          color: '#6b7280',
-          callback: function(value) {
-            return '₹' + value;
-          }
-        }
-      }
-    },
-    interaction: {
-      intersect: false,
-      mode: 'index',
-    },
-  };
-
-  const chartData = {
-    labels: data.map(d => d.date),
-    datasets: [
-      {
-        label: 'Price',
-        data: data.map(d => d.price),
-        borderColor: color,
-        backgroundColor: (context) => {
-          const ctx = context.chart.ctx;
-          const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-          gradient.addColorStop(0, `${color}40`);
-          gradient.addColorStop(1, `${color}00`);
-          return gradient;
-        },
-        borderWidth: 2,
-        tension: 0.4,
-        fill: true,
-        pointBackgroundColor: color,
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: color,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-      },
-    ],
-  };
-
+const MarketChart = ({ data, title, color = "#10b981" }) => {
   return (
-    <div className="w-full h-full min-h-[300px]">
-      <Line options={options} data={chartData} />
+    <div className="w-full h-full flex flex-col">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={data}
+          margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+        >
+          <defs>
+            <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={color} stopOpacity={0.3} />
+              <stop offset="95%" stopColor={color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
+          <XAxis 
+            dataKey="date" 
+            stroke="rgba(255,255,255,0.4)" 
+            fontSize={12} 
+            tickMargin={10}
+            tickFormatter={(tick) => {
+                // If it's a date string, format it shortly
+                try {
+                    const date = new Date(tick);
+                    if (!isNaN(date.getTime())) {
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }
+                } catch (e) {}
+                return tick;
+            }}
+          />
+          <YAxis 
+            stroke="rgba(255,255,255,0.4)" 
+            fontSize={12} 
+            tickFormatter={(value) => `₹${value}`}
+            domain={['auto', 'auto']}
+            width={60}
+          />
+          <Tooltip 
+            contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
+            itemStyle={{ color: '#fff' }}
+            formatter={(value) => [`₹${value}`, 'Price']}
+            labelFormatter={(label) => {
+                 try {
+                    const date = new Date(label);
+                    if (!isNaN(date.getTime())) {
+                        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    }
+                } catch (e) {}
+                return label;
+            }}
+          />
+          <Area 
+            type="monotone" 
+            dataKey="price" 
+            stroke={color} 
+            strokeWidth={3}
+            fillOpacity={1} 
+            fill="url(#colorPrice)" 
+            animationDuration={1500}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   );
 };

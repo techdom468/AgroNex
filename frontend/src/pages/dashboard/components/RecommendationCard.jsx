@@ -1,59 +1,80 @@
 import React from 'react';
-import Card from '../../../components/ui/Card';
-import { Lightbulb, Sparkles, AlertTriangle, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { FaCheckCircle, FaExclamationTriangle, FaInfoCircle, FaArrowUp, FaArrowDown, FaMinus } from 'react-icons/fa';
 
-const RecommendationCard = ({ recommendations = [] }) => {
+const RecommendationCard = ({ data }) => {
+  
+  if (!data) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center space-y-4"
+      >
+        <FaInfoCircle className="text-4xl text-gray-600" />
+        <h3 className="text-gray-400 font-medium">No Recommendation Available</h3>
+        <p className="text-xs text-gray-500">Wait for prediction analysis to complete.</p>
+      </motion.div>
+    );
+  }
+
+  const { recommendation, trend, reason } = data;
+
+  let bgClass = "bg-gray-500/10 border-gray-500/20";
+  let iconColor = "text-gray-400";
+  let TrendIcon = FaMinus;
+  let titleColor = "text-gray-300";
+
+  if (recommendation === 'BUY') {
+    bgClass = "bg-blue-500/10 border-blue-500/30";
+    iconColor = "text-blue-400";
+    TrendIcon = FaArrowUp;
+    titleColor = "text-blue-400";
+  } else if (recommendation === 'SELL') {
+    bgClass = "bg-green-500/10 border-green-500/30";
+    iconColor = "text-green-400";
+    TrendIcon = FaArrowDown;
+    titleColor = "text-green-400";
+  } else if (recommendation === 'HOLD') {
+    bgClass = "bg-yellow-500/10 border-yellow-500/30";
+    iconColor = "text-yellow-400";
+    TrendIcon = FaMinus;
+    titleColor = "text-yellow-400";
+  }
+
   return (
-    <Card className="p-6 h-full border-t-4 border-t-yellow-500 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm relative overflow-hidden">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="bg-yellow-100 dark:bg-yellow-900/40 p-2.5 rounded-xl">
-          <Lightbulb className="text-yellow-600 dark:text-yellow-500" size={24} />
-        </div>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.15 }}
+      className={`glass-panel p-6 rounded-2xl border flex flex-col relative overflow-hidden ${bgClass}`}
+    >
+      <div className="flex justify-between items-start mb-4">
         <div>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">AI Smart Recommendations</h2>
-          <p className="text-xs text-gray-500 dark:text-gray-400">Tailored advice for your farm today</p>
+            <h3 className="text-gray-400 font-medium text-sm tracking-wider uppercase mb-1">AI Recommendation</h3>
+            <div className={`text-4xl font-black tracking-tight ${titleColor}`}>
+                {recommendation || 'UNKNOWN'}
+            </div>
+        </div>
+        <div className={`p-3 rounded-full bg-black/20 ${iconColor}`}>
+            <TrendIcon className="text-2xl" />
         </div>
       </div>
-
-      <div className="space-y-4 relative z-10">
-        {recommendations.length > 0 ? (
-          recommendations.map((rec, index) => {
-            // Determine icon and color based on content (simple mock logic)
-            let Icon = Sparkles;
-            let iconColor = "text-yellow-500";
-            let bgColor = "bg-yellow-50 dark:bg-yellow-900/20";
-            
-            if (rec.toLowerCase().includes('risk') || rec.toLowerCase().includes('delay')) {
-              Icon = AlertTriangle;
-              iconColor = "text-red-500";
-              bgColor = "bg-red-50 dark:bg-red-900/20";
-            } else if (rec.toLowerCase().includes('suitable') || rec.toLowerCase().includes('low')) {
-              Icon = CheckCircle;
-              iconColor = "text-green-500";
-              bgColor = "bg-green-50 dark:bg-green-900/20";
-            } else if (rec.toLowerCase().includes('trend') || rec.toLowerCase().includes('price')) {
-              Icon = Sparkles;
-              iconColor = "text-blue-500";
-              bgColor = "bg-blue-50 dark:bg-blue-900/20";
-            }
-
-            return (
-              <div key={index} className={`flex items-start gap-3 p-4 rounded-xl ${bgColor} border border-transparent dark:border-gray-800`}>
-                <Icon className={`${iconColor} shrink-0 mt-0.5`} size={18} />
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200 leading-relaxed">
-                  {rec}
-                </p>
-              </div>
-            );
-          })
-        ) : (
-           <div className="flex flex-col items-center justify-center py-8 text-center">
-             <Lightbulb className="text-gray-300 dark:text-gray-600 mb-3" size={32} />
-             <p className="text-gray-500 dark:text-gray-400 text-sm">Our AI is analyzing your data to generate smart recommendations...</p>
-           </div>
-        )}
+      
+      <div className="mt-4 flex-1">
+        <p className="text-gray-300 text-sm leading-relaxed">
+            {reason || "Based on historical price movements and seasonality, our AI suggests proceeding with caution."}
+        </p>
       </div>
-    </Card>
+
+      <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs">
+          <span className="text-gray-500 font-medium uppercase">Trend Status</span>
+          <span className={`font-bold px-2 py-1 rounded bg-black/30 ${titleColor}`}>
+              {trend || 'STABLE'}
+          </span>
+      </div>
+    </motion.div>
   );
 };
 

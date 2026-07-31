@@ -89,7 +89,7 @@ const MarketCard = ({ marketData }) => {
         </div>
       </div>
 
-      <Link to="/dashboard/market">
+      <Link to="/dashboard/market" state={{ crop: commodity }}>
         <Button variant="outline" className="w-full relative z-10 flex items-center justify-center gap-2 group">
           View Market Details <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </Button>

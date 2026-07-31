@@ -36,23 +36,6 @@ class ENAMAdapter(BaseSchemeAdapter):
         )
 
     def fetch_live_data(self):
-        html = self.fetch_url_content()
-        if not html:
-            return None
-
-        soup = self.parse_html(html)
-        if not soup:
-            return None
-
-        content_area = soup.find('div', class_='about-enam') or soup.find('div', id='content')
-        description = ""
-        if content_area:
-            paragraphs = content_area.find_all('p')
-            text_list = [p.get_text(strip=True) for p in paragraphs if len(p.get_text(strip=True)) > 30]
-            if text_list:
-                description = " ".join(text_list[:3])
-
-        return {
-            "description": description if description else None,
-            "lastUpdated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
-        }
+        # The official enam.gov.in portal frequently times out or blocks automated requests.
+        # Returning None immediately to use verified fallback data and prevent startup delays.
+        return None

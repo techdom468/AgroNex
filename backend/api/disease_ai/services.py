@@ -36,10 +36,12 @@ class DiseaseDetectionService:
         
         # 3. Predict
         success, msg, result = predict_disease(full_path)
+        
+        # Cleanup saved file unconditionally as we no longer store images
+        if os.path.exists(full_path):
+            os.remove(full_path)
+            
         if not success:
-            # Cleanup saved file on AI failure
-            if os.path.exists(full_path):
-                os.remove(full_path)
             return False, msg, None
             
         # 4. Save to MongoDB
@@ -49,7 +51,6 @@ class DiseaseDetectionService:
         if collection is not None:
             record = {
                 'user_id': str(user_id),
-                'image_url': f"{settings.MEDIA_URL}{saved_file}",
                 'disease_name': result['disease'],
                 'confidence': result['confidence'],
                 'medicine': result['info']['recommended_medicine'],
@@ -61,7 +62,6 @@ class DiseaseDetectionService:
             
             history_record = {
                 'id': str(inserted.inserted_id),
-                'image_url': record['image_url'],
                 'disease_name': record['disease_name'],
                 'confidence': record['confidence'],
                 'prediction_date': record['prediction_date']
@@ -69,7 +69,6 @@ class DiseaseDetectionService:
             
         # Add history record to the result
         result['history'] = history_record
-        result['image_url'] = f"{settings.MEDIA_URL}{saved_file}"
         
         return True, "Analysis complete.", result
         
@@ -85,7 +84,6 @@ class DiseaseDetectionService:
         for doc in cursor:
             history.append({
                 'id': str(doc['_id']),
-                'image_url': doc['image_url'],
                 'disease_name': doc['disease_name'],
                 'confidence': doc['confidence'],
                 'medicine': doc.get('medicine', ''),

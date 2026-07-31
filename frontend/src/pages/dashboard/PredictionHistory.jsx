@@ -78,16 +78,11 @@ const PredictionHistory = () => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
               <Card className="overflow-hidden hover:shadow-xl transition-shadow flex flex-col h-full">
-                <div className="h-48 w-full bg-gray-100 dark:bg-gray-800 relative">
-                  <img 
-                    src={`http://127.0.0.1:8000${record.image_url}`} 
-                    alt={record.disease_name} 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/400x300?text=Image+Unavailable';
-                    }}
-                  />
-                  <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold border border-white/10">
+                <div className="bg-primary-50 dark:bg-primary-900/20 p-4 border-b border-primary-100 dark:border-primary-800/50 flex justify-between items-start">
+                  <div className="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm">
+                    <Sprout className="text-primary-500 h-6 w-6" />
+                  </div>
+                  <div className="bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-400 px-3 py-1 rounded-full text-xs font-bold border border-primary-200 dark:border-primary-800">
                     {record.confidence}% Match
                   </div>
                 </div>
