@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Leaf, ShieldAlert, TrendingUp, CloudSun } from 'lucide-react';
+import { ArrowRight, Leaf, ShieldAlert, CloudSun, Landmark } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 
@@ -30,15 +30,16 @@ const Home = () => {
       title: "Disease Detection",
       description: "Instantly identify plant diseases and get treatment advice using computer vision."
     },
-    {
-      icon: <TrendingUp className="h-8 w-8 text-blue-500" />,
-      title: "Market Price Predictor",
-      description: "Make informed decisions with real-time market prices and future trend predictions."
-    },
+
     {
       icon: <CloudSun className="h-8 w-8 text-yellow-500" />,
       title: "Smart Weather Forecast",
       description: "Receive hyper-local weather updates and agricultural advisories."
+    },
+    {
+      icon: <Landmark className="h-8 w-8 text-purple-500" />,
+      title: "Government Schemes",
+      description: "Explore and apply for various agricultural subsidies and government schemes easily."
     }
   ];
 
@@ -80,7 +81,7 @@ const Home = () => {
               variants={itemVariants}
               className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto"
             >
-              Empower your agricultural journey with enterprise-grade AI. From crop prediction to disease detection and market analytics.
+              Empower your agricultural journey with enterprise-grade AI. From crop prediction to disease detection.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-4">

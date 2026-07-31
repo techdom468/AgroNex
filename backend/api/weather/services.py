@@ -1,4 +1,3 @@
-import time
 from datetime import datetime
 from django.core.cache import cache
 from api.database.mongodb import get_db

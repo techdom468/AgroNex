@@ -36,7 +36,6 @@ const Footer = () => {
             <ul className="space-y-3">
               <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Crop Recommendation</a></li>
               <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Disease Detection</a></li>
-              <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Market Prices</a></li>
               <li><a href="/#features" className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 text-sm">Weather Forecast</a></li>
             </ul>
           </div>

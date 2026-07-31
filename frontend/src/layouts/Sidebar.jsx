@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, User, Sprout, CloudSun, 
-  TrendingUp, Landmark, MessageSquare, 
+  Landmark, MessageSquare, 
   History, LogOut, X, Leaf, ScanLine
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
@@ -16,7 +16,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { title: 'Crop Recommendation', path: '/dashboard/crop-recommendation', icon: <Sprout size={20} /> },
     { title: 'Disease Detection AI', path: '/dashboard/disease-ai', icon: <ScanLine size={20} /> },
     { title: 'Weather Forecast', path: '/dashboard/weather', icon: <CloudSun size={20} /> },
-    { title: 'Market Prices', path: '/dashboard/market', icon: <TrendingUp size={20} /> },
     { title: 'Govt Schemes', path: '/dashboard/schemes', icon: <Landmark size={20} /> },
     { title: 'AI Chatbot', path: '/dashboard/chat', icon: <MessageSquare size={20} /> },
     { title: 'Prediction History', path: '/dashboard/disease-history', icon: <History size={20} /> },

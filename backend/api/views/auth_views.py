@@ -1,6 +1,6 @@
 import os
 from rest_framework.decorators import api_view, parser_classes
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from django.conf import settings
 from api.services.auth_service import AuthService

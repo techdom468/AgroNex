@@ -20,7 +20,6 @@ import DiseaseDetection from './pages/dashboard/DiseaseDetection';
 import PredictionHistory from './pages/dashboard/PredictionHistory';
 
 import WeatherDashboard from './pages/dashboard/WeatherDashboard';
-import MarketIntelligence from './pages/dashboard/MarketIntelligence';
 import GovernmentSchemes from './pages/dashboard/GovernmentSchemes';
 import Profile from './pages/dashboard/Profile';
 
@@ -85,7 +84,6 @@ function App() {
                 <Route path="disease-ai" element={<DiseaseDetection />} />
                 <Route path="disease-history" element={<PredictionHistory />} />
                 <Route path="weather" element={<WeatherDashboard />} />
-                <Route path="market" element={<MarketIntelligence />} />
                 <Route path="schemes" element={<GovernmentSchemes />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="chat" element={<ChatPage />} />

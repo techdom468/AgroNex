@@ -6,7 +6,6 @@ const SUGGESTED_QUESTIONS = [
   "🌦 Today's Weather",
   "🌾 Recommend Crop",
   "🦠 Plant Disease",
-  "📈 Cotton Price",
   "🏛 Government Schemes"
 ];
 
@@ -69,7 +68,7 @@ const ChatWindow = ({ messages, onSendMessage, onClearChat, isLoading }) => {
               </div>
               <h2 className="text-xl font-bold text-white mb-2">Welcome to AgroNex AI</h2>
               <p className="text-gray-400 mb-8 max-w-md text-sm">
-                Your intelligent farming assistant. Ask about weather, market prices, crop recommendations, diseases, or government schemes.
+                Your intelligent farming assistant. Ask about weather, crop recommendations, diseases, or government schemes.
               </p>
               <div className="flex flex-wrap gap-2 justify-center max-w-lg">
                 {SUGGESTED_QUESTIONS.map((q, idx) => (

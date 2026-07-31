@@ -6,10 +6,6 @@ const languages = [
   { code: 'en', name: 'English', label: 'English - EN' },
   { code: 'hi', name: 'Hindi', label: 'हिन्दी - HI' },
   { code: 'gu', name: 'Gujarati', label: 'ગુજરાતી - GU' },
-  { code: 'mr', name: 'Marathi', label: 'मराठी - MR' },
-  { code: 'bn', name: 'Bengali', label: 'বাংলা - BN' },
-  { code: 'ta', name: 'Tamil', label: 'தமிழ் - TA' },
-  { code: 'te', name: 'Telugu', label: 'తెలుగు - TE' },
 ];
 
 const LanguageSelector = ({ variant = 'navbar' }) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Card from '../../../components/ui/Card';
-import { Sprout, ScanLine, CloudSun, TrendingUp, Landmark, MessageSquare } from 'lucide-react';
+import { Sprout, ScanLine, CloudSun, Landmark, MessageSquare } from 'lucide-react';
 
 const QuickActions = () => {
   const actions = [
@@ -30,14 +30,7 @@ const QuickActions = () => {
       link: "/dashboard/weather",
       delay: 0.3
     },
-    {
-      title: "Market Prices",
-      desc: "Live APMC crop market rates",
-      icon: <TrendingUp size={28} className="text-orange-600 dark:text-orange-500" />,
-      bg: "bg-orange-100 dark:bg-orange-900/30",
-      link: "/dashboard/market",
-      delay: 0.4
-    },
+
     {
       title: "Government Schemes",
       desc: "Find subsidies and schemes",

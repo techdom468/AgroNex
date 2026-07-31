@@ -7,7 +7,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 INTENT_KEYWORDS = {
     "Greeting": ["hello", "hi", "hey", "good morning", "good evening", "namaste", "kem cho"],
     "Weather": ["weather", "rain", "temperature", "humidity", "forecast", "climate", "hot", "cold"],
-    "Market Price": ["price", "market", "rate", "bhav", "mandi", "sell", "cost", "prediction"],
     "Government Schemes": ["scheme", "subsidy", "yojana", "pm-kisan", "insurance", "loan", "government"],
     "Crop Recommendation": ["recommend", "which crop", "best crop", "soil", "grow", "season", "planting"],
     "Disease": ["disease", "treatment", "symptom", "pest", "insect", "fungus", "chemical", "organic", "sick", "yellow leaves"],
@@ -25,11 +24,6 @@ INTENT_PHRASES = {
         "will it rain tomorrow",
         "what is the temperature",
         "is it going to be humid"
-    ],
-    "Market Price": [
-        "what is today's cotton price",
-        "tomorrow wheat prediction",
-        "current market rate for tomatoes"
     ],
     "Government Schemes": [
         "tell me about pm kisan yojana",

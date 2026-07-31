@@ -20,7 +20,7 @@ Always prefer AgroNex internal services over Gemini.
 If the user asks in Gujarati, reply in Gujarati.
 If the user asks in Hindi, reply in Hindi.
 Otherwise, reply in English.
-Never hallucinate market prices or weather.
+Never hallucinate weather.
 Never invent government schemes.
 """
 
@@ -44,9 +44,6 @@ def call_gemini(question):
 def get_weather_service(question):
     # In a real app, parse location/date from question and call Weather API
     return "Weather for your location: Sunny, 28°C. Humidity: 45%. No rain expected tomorrow."
-
-def get_market_price_service(question):
-    return "Current Price: ₹7,500/quintal\nTomorrow Prediction: ₹7,600/quintal\nMarket Name: Rajkot Mandi\nDate: Today"
 
 def get_government_scheme_service(question):
     return """Scheme Name: PM-KISAN
@@ -78,8 +75,6 @@ def route_question(question):
             answer = "Hello! I am AgroNex AI. How can I help you with your farming needs today?"
         elif intent == "Weather":
             answer = get_weather_service(question)
-        elif intent == "Market Price":
-            answer = get_market_price_service(question)
         elif intent == "Government Schemes":
             answer = get_government_scheme_service(question)
         elif intent == "Crop Recommendation":

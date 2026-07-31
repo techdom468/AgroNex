@@ -32,7 +32,6 @@ def get_dashboard_summary(request):
     # AI-driven recommendations (rule engine)
     recommendations = [
         "Today's weather is suitable for irrigation.",
-        "Wheat prices are showing an upward trend in your nearest market.",
         "Low disease risk detected for your region today."
     ]
     

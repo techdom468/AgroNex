@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 // Import New Components
 import WeatherCard from './components/WeatherCard';
-import MarketCard from './components/MarketCard';
+
 
 import QuickActions from './components/QuickActions';
 import SchemeCard from './components/SchemeCard';
@@ -35,7 +35,6 @@ const DashboardHome = () => {
   const { user } = useContext(AuthContext);
   const [summary, setSummary] = useState(null);
   const [weather, setWeather] = useState(null);
-  const [market, setMarket] = useState(null);
   const [schemes, setSchemes] = useState(null);
 
   // Fetch all data concurrently, failures don't block other cards
@@ -80,14 +79,6 @@ const DashboardHome = () => {
       .catch(e => { console.error("Schemes error:", e); setSchemes([]); });
   }, []);
 
-  // Fetch market price when user profile is loaded (to use their crop)
-  useEffect(() => {
-    if (user === undefined) return; // still initializing
-    const userCrop = user?.main_crop || 'Cotton';
-    dashboardService.getLiveMarketPrice(userCrop)
-      .then(res => setMarket(res))
-      .catch(e => { console.error("Market error:", e); setMarket(null); });
-  }, [user?.main_crop]);
 
   // Greeting based on time of day
   const getGreeting = () => {
@@ -120,15 +111,12 @@ const DashboardHome = () => {
         </div>
       </motion.div>
 
-      {/* ── SECTION 2 : Weather + Market + Recommendations ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* ── SECTION 2 : Weather + Recommendations ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <ErrorBoundary><WeatherCard weatherData={weather} /></ErrorBoundary>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <ErrorBoundary><MarketCard marketData={market} /></ErrorBoundary>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
           <ErrorBoundary><SchemeCard schemeData={schemes} user={user} /></ErrorBoundary>
         </motion.div>
       </div>

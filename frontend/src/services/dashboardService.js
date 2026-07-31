@@ -18,12 +18,6 @@ export const dashboardService = {
     return response.data;
   },
 
-  getLiveMarketPrice: async (commodity = 'Cotton') => {
-    const response = await api.get('/market/current/', {
-      params: { commodity }
-    });
-    return response.data;
-  },
 
   getRecommendedSchemes: async () => {
     const response = await api.get('/schemes/recommended/');

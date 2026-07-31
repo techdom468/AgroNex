@@ -31,7 +31,6 @@ urlpatterns = [
     path('crop-ai/', include('api.crop_ai.urls')),
     path('disease/', include('api.disease_ai.urls')),
     path('weather/', include('api.weather.urls')),
-    path('market/', include('api.market.urls')),
     path('', include('schemes.api.urls')),
     path('contact/', contact_submit, name='contact_submit'),
     path('dashboard/summary/', get_dashboard_summary, name='dashboard_summary'),
