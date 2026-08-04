@@ -90,6 +90,9 @@ def predict_disease(image_path):
         class_id = result.probs.top1
         confidence = float(result.probs.top1conf.item()) * 100
         
+        if confidence < 40.0:
+            return False, "Could not confidently identify a plant disease. Please upload a clear image of a plant leaf.", None
+            
         # Get class name
         class_name = model.names[class_id]
         
