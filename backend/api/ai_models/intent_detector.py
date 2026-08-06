@@ -46,7 +46,6 @@ INTENT_PHRASES = {
 
 class IntentDetector:
     def __init__(self):
-        # Prepare for TF-IDF
         self.corpus = []
         self.intent_labels = []
         
@@ -61,31 +60,20 @@ class IntentDetector:
     def detect_intent(self, text):
         text = text.lower().strip()
         
-        # 1. Exact route mapping / Simple keyword matching
-        for intent, keywords in INTENT_KEYWORDS.items():
-            for keyword in keywords:
-                # Use word boundaries for exact match
-                if re.search(r'\b' + re.escape(keyword) + r'\b', text):
-                    # We give this a high confidence but not 100%, maybe 90%
-                    # We'll check fuzzy and TF-IDF to boost it.
-                    pass 
-
-        # Let's combine fuzzy and TF-IDF for a robust score
         best_intent = "Unknown"
         best_confidence = 0.0
 
-        # 2. Fuzzy Matching
+        # Fuzzy Matching
         fuzzy_scores = {intent: 0 for intent in INTENT_KEYWORDS.keys()}
         for intent, keywords in INTENT_KEYWORDS.items():
             for keyword in keywords:
-                # Fuzz ratio between keyword and text words
                 words = text.split()
                 for word in words:
                     score = fuzz.ratio(keyword, word)
                     if score > fuzzy_scores[intent]:
                         fuzzy_scores[intent] = score
 
-        # 3. Lightweight NLP (TF-IDF Cosine Similarity)
+        # TF-IDF Cosine Similarity
         text_vector = self.vectorizer.transform([text])
         cosine_similarities = cosine_similarity(text_vector, self.tfidf_matrix).flatten()
         
@@ -98,34 +86,28 @@ class IntentDetector:
         # Combine Scores
         final_scores = {}
         for intent in INTENT_KEYWORDS.keys():
-            # fuzzy gives 0-100, normalize to 0-1
             f_score = fuzzy_scores[intent] / 100.0
-            # tfidf gives 0-1
             t_score = tfidf_scores[intent]
             
-            # Weighted combination (favor TF-IDF slightly more for context)
             combined_score = (f_score * 0.4) + (t_score * 0.6)
             
-            # Boost if there's an exact word match
+            # Exact word match boost
             for keyword in INTENT_KEYWORDS[intent]:
                 if re.search(r'\b' + re.escape(keyword) + r'\b', text):
                     combined_score += 0.3
                     break
             
-            final_scores[intent] = min(combined_score, 1.0) # Cap at 1.0
+            final_scores[intent] = min(combined_score, 1.0)
             
             if final_scores[intent] > best_confidence:
                 best_confidence = final_scores[intent]
                 best_intent = intent
 
-        # Confidence percentage
         confidence_pct = round(best_confidence * 100)
 
-        # 4. Fallback threshold
+        # Fallback threshold if confidence is too low
         if confidence_pct < 70:
             best_intent = "General Agriculture"
-            # It might just be an out-of-domain question, but the router
-            # will pass it to Gemini, which is instructed to reject non-agri.
 
         return best_intent, confidence_pct
 

@@ -3,7 +3,6 @@ from google import genai
 from google.genai import types
 from .intent_detector import get_intent
 
-# Configure Gemini client
 _gemini_client = None
 
 def get_gemini_client():
@@ -40,12 +39,10 @@ def call_gemini(question):
     except Exception as e:
         return f"Error contacting Gemini API: {str(e)}"
 
-# Mock Internal Services
 def get_weather_service(question):
     """Fetch real weather data from Open-Meteo API (same as Dashboard)."""
     try:
         import requests
-        # Default: Ahmedabad coordinates (same as Dashboard)
         lat, lon = 23.03, 72.55
         url = "https://api.open-meteo.com/v1/forecast"
         params = {
