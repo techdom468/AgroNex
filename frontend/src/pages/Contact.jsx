@@ -257,7 +257,7 @@ const Contact = () => {
                   </div>
 
                   <Button type="submit" variant="primary" size="lg" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                   </Button>
                 </form>
               </Card>

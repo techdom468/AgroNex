@@ -1,10 +1,10 @@
 import api from './api';
 
 export const weatherService = {
-  getCurrentWeather: async (lat, lon, location) => {
+  getCurrentWeather: async (lat, lon, location, forceRefresh = false) => {
     try {
       const response = await api.get('/weather/current/', {
-        params: { lat, lon, location }
+        params: { lat, lon, location, refresh: forceRefresh }
       });
       return response.data;
     } catch (error) {

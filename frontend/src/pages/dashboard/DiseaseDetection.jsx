@@ -77,7 +77,7 @@ const DiseaseDetection = () => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
             <ScanLine className="text-primary-500" /> Plant Disease AI
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Upload a leaf photo and let YOLOv8 AI detect diseases.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Upload a leaf photo and let Gemini AI detect diseases.</p>
         </div>
         <Link to="/dashboard/disease-history">
           <Button variant="outline" className="flex items-center gap-2">
@@ -170,6 +170,11 @@ const DiseaseDetection = () => {
                   <div>
                     <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-widest font-semibold mb-1">AI Diagnosis</p>
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{result.disease}</h2>
+                    {result.plant_name && result.plant_name !== 'Unknown' && (
+                      <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-500 text-white shadow-sm mt-2">
+                        <Leaf size={14} className="mr-1.5" /> Plant Identified: <span className="ml-1 tracking-wide">{result.plant_name}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="text-3xl font-black text-primary-600 dark:text-primary-400">{result.confidence}%</span>
@@ -187,7 +192,7 @@ const DiseaseDetection = () => {
                 </div>
               </Card>
 
-              {result.info && result.disease !== 'Healthy' && (
+              {result.info && !result.disease.toLowerCase().includes('healthy') && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                   <Card className="p-5 bg-gradient-to-br from-red-50 to-white dark:from-red-900/10 dark:to-gray-900 border-red-100 dark:border-red-900/30">
                     <div className="flex items-center gap-2 mb-3 text-red-600 dark:text-red-400 font-semibold">
@@ -216,7 +221,7 @@ const DiseaseDetection = () => {
                 </div>
               )}
 
-              {result.disease === 'Healthy' && (
+              {result.disease.toLowerCase().includes('healthy') && (
                 <Card className="p-8 flex-1 flex flex-col items-center justify-center text-center bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-gray-900">
                   <div className="w-20 h-20 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-4">
                     <Leaf size={40} />

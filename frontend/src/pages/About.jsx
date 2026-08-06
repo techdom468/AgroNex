@@ -20,7 +20,7 @@ const About = () => {
     { icon: <Database className="h-8 w-8 text-blue-400" />, name: "React & Tailwind", desc: "Modern, responsive frontend" },
     { icon: <Server className="h-8 w-8 text-green-600" />, name: "Django REST API", desc: "Robust and secure backend" },
     { icon: <Database className="h-8 w-8 text-green-500" />, name: "MongoDB", desc: "Scalable NoSQL database" },
-    { icon: <BrainCircuit className="h-8 w-8 text-yellow-500" />, name: "YOLOv8 & ML", desc: "Advanced AI models" }
+    { icon: <BrainCircuit className="h-8 w-8 text-yellow-500" />, name: "Gemini Vision AI & ML", desc: "Advanced AI models" }
   ];
 
   const benefits = [

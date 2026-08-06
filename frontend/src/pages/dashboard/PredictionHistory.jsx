@@ -28,7 +28,7 @@ const PredictionHistory = () => {
     }
   };
 
-  const filteredHistory = history.filter(item => 
+  const filteredHistory = history.filter(item =>
     item.disease_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -51,9 +51,9 @@ const PredictionHistory = () => {
       <Card className="p-4 sm:p-6 mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
-            <Input 
-              icon={Search} 
-              placeholder="Search by disease name..." 
+            <Input
+              icon={Search}
+              placeholder="Search by disease name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -78,25 +78,33 @@ const PredictionHistory = () => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
               <Card className="overflow-hidden hover:shadow-xl transition-shadow flex flex-col h-full">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-4 border-b border-primary-100 dark:border-primary-800/50 flex justify-between items-start">
-                  <div className="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm">
-                    <Sprout className="text-primary-500 h-6 w-6" />
-                  </div>
-                  <div className="bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-400 px-3 py-1 rounded-full text-xs font-bold border border-primary-200 dark:border-primary-800">
+                <div className="bg-primary-50 dark:bg-primary-900/20 p-4 border-b border-primary-100 dark:border-primary-800/50 flex justify-between items-start h-32 relative overflow-hidden">
+                  {record.image_url ? (
+                    <img
+                      src={`${api.defaults.baseURL.replace('/api/v1/', '')}${record.image_url}`}
+                      alt={record.disease_name}
+                      className="absolute inset-0 w-full h-full object-cover opacity-80"
+                    />
+                  ) : (
+                    <div className="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm relative z-10">
+                      <Sprout className="text-primary-500 h-6 w-6" />
+                    </div>
+                  )}
+                  <div className="bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-400 px-3 py-1 rounded-full text-xs font-bold border border-primary-200 dark:border-primary-800 relative z-10 ml-auto self-start">
                     {record.confidence}% Match
                   </div>
                 </div>
-                
+
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2 line-clamp-1">{record.disease_name}</h3>
-                  
+
                   <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-4">
-                    <Calendar size={14} /> 
+                    <Calendar size={14} />
                     {new Date(record.prediction_date).toLocaleDateString('en-US', {
                       year: 'numeric', month: 'short', day: 'numeric'
                     })}
                   </div>
-                  
+
                   <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
                     <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                       <span className="font-semibold">Treatment:</span> {record.medicine || 'Organic care recommended.'}
@@ -114,7 +122,7 @@ const PredictionHistory = () => {
           </div>
           <h3 className="text-lg font-bold text-gray-700 dark:text-gray-300 mb-2">No Records Found</h3>
           <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm mx-auto">
-            {searchTerm ? 'No predictions match your search term.' : 'You haven\'t made any disease predictions yet.'}
+            <span>{searchTerm ? 'No predictions match your search term.' : 'You haven\'t made any disease predictions yet.'}</span>
           </p>
           {!searchTerm && (
             <Link to="/dashboard/disease-ai" className="mt-6">

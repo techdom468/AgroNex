@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     // Listen for unauthorized events from api interceptor
     const handleUnauthorized = () => logout();
     window.addEventListener('auth-unauthorized', handleUnauthorized);
-    
+
     return () => window.removeEventListener('auth-unauthorized', handleUnauthorized);
   }, []);
 
@@ -42,16 +42,16 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await api.post('/auth/login/', { email, password });
       const { token, user } = res.data.data;
-      
+
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-      
+
       setUser(user);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || "An unexpected error occurred" 
+      return {
+        success: false,
+        error: error.response?.data?.message || "An unexpected error occurred"
       };
     }
   };
@@ -60,16 +60,16 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await api.post('/auth/register/', { email, password, full_name });
       const { token, user } = res.data.data;
-      
+
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-      
+
       setUser(user);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || "Registration failed" 
+      return {
+        success: false,
+        error: error.response?.data?.message || "Registration failed"
       };
     }
   };
@@ -92,9 +92,9 @@ export const AuthProvider = ({ children }) => {
       setUser(updatedUser);
       return { success: true, data: updatedUser };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || "Profile update failed" 
+      return {
+        success: false,
+        error: error.response?.data?.message || "Profile update failed"
       };
     }
   };
@@ -117,9 +117,9 @@ export const AuthProvider = ({ children }) => {
       }
       return { success: true, imageUrl: image_url };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || "Image upload failed" 
+      return {
+        success: false,
+        error: error.response?.data?.message || "Image upload failed"
       };
     }
   };
@@ -140,9 +140,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, loading, login, register, logout, 
-      updateProfile, uploadProfileImage, refreshProfile 
+    <AuthContext.Provider value={{
+      user, loading, login, register, logout,
+      updateProfile, uploadProfileImage, refreshProfile
     }}>
       {children}
     </AuthContext.Provider>

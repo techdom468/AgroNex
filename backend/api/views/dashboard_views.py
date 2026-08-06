@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from api.database.mongodb import get_db
+from api.database.mongo import get_db
 from bson import ObjectId
 from api.utils.decorators import jwt_required
 

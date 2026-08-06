@@ -38,11 +38,10 @@ const Toast = ({ type, message, onClose }) => {
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -16 }}
-      className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-lg border text-sm font-medium max-w-sm ${
-        type === 'success'
+      className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-lg border text-sm font-medium max-w-sm ${type === 'success'
           ? 'bg-green-50 text-green-800 border-green-200 dark:bg-green-900/40 dark:text-green-300 dark:border-green-700'
           : 'bg-red-50 text-red-800 border-red-200 dark:bg-red-900/40 dark:text-red-300 dark:border-red-700'
-      }`}
+        }`}
     >
       {type === 'success' ? <CheckCircle className="w-5 h-5 shrink-0" /> : <AlertCircle className="w-5 h-5 shrink-0" />}
       <span>{message}</span>
@@ -229,25 +228,25 @@ const Profile = () => {
             </h1>
             <p className="text-primary-600 dark:text-primary-400 font-medium mt-1">{user?.email}</p>
           </div>
-          
+
           <div className="shrink-0 flex gap-3 mt-4 sm:mt-0">
-             {!isEditing && (
-                <button
-                    type="button"
-                    onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                    Edit Profile
-                </button>
-             )}
+            {!isEditing && (
+              <button
+                type="button"
+                onClick={() => setIsEditing(true)}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                <Edit3 className="w-4 h-4" />
+                Edit Profile
+              </button>
+            )}
           </div>
         </div>
       </motion.div>
 
       <form onSubmit={handleSave} noValidate>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -258,76 +257,76 @@ const Profile = () => {
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-4">
                 <User className="text-primary-500" /> Personal Details
               </h3>
-              
+
               <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
-                        <User className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="text"
-                        name="full_name"
-                        value={formData.full_name}
-                        onChange={handleChange}
-                        readOnly={!isEditing}
-                        className={`pl-10 ${inputClass('full_name')}`}
-                        placeholder="John Doe"
-                      />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
+                      <User className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                     </div>
-                    {errors.full_name && (
-                      <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" /> {errors.full_name}
-                      </p>
-                    )}
+                    <input
+                      type="text"
+                      name="full_name"
+                      value={formData.full_name}
+                      onChange={handleChange}
+                      readOnly={!isEditing}
+                      className={`pl-10 ${inputClass('full_name')}`}
+                      placeholder="John Doe"
+                    />
                   </div>
+                  {errors.full_name && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.full_name}
+                    </p>
+                  )}
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Mail className="h-5 w-5 text-gray-400" />
-                      </div>
-                      <input
-                        type="email"
-                        value={user?.email || ''}
-                        disabled
-                        className="pl-10 block w-full rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 text-gray-500 py-2.5 cursor-not-allowed text-sm"
-                      />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-gray-400" />
                     </div>
-                    <p className="mt-1 text-xs text-gray-400">Email cannot be changed.</p>
+                    <input
+                      type="email"
+                      value={user?.email || ''}
+                      disabled
+                      className="pl-10 block w-full rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 text-gray-500 py-2.5 cursor-not-allowed text-sm"
+                    />
                   </div>
+                  <p className="mt-1 text-xs text-gray-400">Email cannot be changed.</p>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Mobile Number <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
-                        <Phone className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="tel"
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleChange}
-                        readOnly={!isEditing}
-                        className={`pl-10 ${inputClass('mobile')}`}
-                        placeholder="9876543210"
-                        maxLength={10}
-                      />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Mobile Number <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
+                      <Phone className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                     </div>
-                    {errors.mobile && (
-                      <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" /> {errors.mobile}
-                      </p>
-                    )}
+                    <input
+                      type="tel"
+                      name="mobile"
+                      value={formData.mobile}
+                      onChange={handleChange}
+                      readOnly={!isEditing}
+                      className={`pl-10 ${inputClass('mobile')}`}
+                      placeholder="9876543210"
+                      maxLength={10}
+                    />
                   </div>
+                  {errors.mobile && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.mobile}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -342,166 +341,166 @@ const Profile = () => {
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-4">
                 <Sprout className="text-secondary-500" /> Farm Details
               </h3>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      State <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <MapPin className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="text"
-                        name="state"
-                        value={formData.state}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    State <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <MapPin className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
+                    </div>
+                    <input
+                      type="text"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                      readOnly={!isEditing}
+                      className={`pl-10 ${inputClass('state')}`}
+                      placeholder="e.g. Gujarat"
+                    />
+                  </div>
+                  {errors.state && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.state}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    District <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Navigation className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
+                    </div>
+                    <input
+                      type="text"
+                      name="district"
+                      value={formData.district}
+                      onChange={handleChange}
+                      readOnly={!isEditing}
+                      className={`pl-10 ${inputClass('district')}`}
+                      placeholder="e.g. Rajkot"
+                    />
+                  </div>
+                  {errors.district && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.district}
+                    </p>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Main Crop <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                      <Sprout className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
+                    </div>
+                    <input
+                      type="text"
+                      value={cropSearch}
+                      onChange={(e) => {
+                        if (!isEditing) return;
+                        setCropSearch(e.target.value);
+                        setFormData(prev => ({ ...prev, main_crop: e.target.value }));
+                        setShowCropDropdown(true);
+                        if (errors.main_crop) setErrors(prev => ({ ...prev, main_crop: '' }));
+                      }}
+                      onFocus={() => isEditing && setShowCropDropdown(true)}
+                      onBlur={() => setTimeout(() => setShowCropDropdown(false), 200)}
+                      readOnly={!isEditing}
+                      className={`pl-10 ${inputClass('main_crop')}`}
+                      placeholder="Search crop..."
+                    />
+                    {isEditing && showCropDropdown && filteredCrops.length > 0 && (
+                      <motion.ul
+                        initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+                        className="absolute z-30 left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-xl max-h-48 overflow-y-auto"
+                      >
+                        {filteredCrops.map(crop => (
+                          <li
+                            key={crop}
+                            onMouseDown={() => {
+                              setCropSearch(crop);
+                              setFormData(prev => ({ ...prev, main_crop: crop }));
+                              setShowCropDropdown(false);
+                            }}
+                            className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-primary-50 dark:hover:bg-primary-900/30 text-gray-700 dark:text-gray-200 transition-colors ${formData.main_crop === crop ? 'bg-primary-50 dark:bg-primary-900/20 font-medium text-primary-700 dark:text-primary-400' : ''}`}
+                          >
+                            {crop}
+                          </li>
+                        ))}
+                      </motion.ul>
+                    )}
+                  </div>
+                  {errors.main_crop && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.main_crop}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Soil Type
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Layers className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
+                    </div>
+                    {isEditing ? (
+                      <select
+                        name="soil_type"
+                        value={formData.soil_type}
                         onChange={handleChange}
-                        readOnly={!isEditing}
-                        className={`pl-10 ${inputClass('state')}`}
-                        placeholder="e.g. Gujarat"
-                      />
-                    </div>
-                    {errors.state && (
-                      <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" /> {errors.state}
-                      </p>
+                        className={`pl-10 appearance-none ${inputClass('soil_type')}`}
+                      >
+                        <option value="">Select soil type</option>
+                        {SOIL_TYPES.map(s => (
+                          <option key={s} value={s}>{s}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <div className="pl-10 block w-full rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 text-gray-700 dark:text-gray-300 py-2.5 text-sm">
+                        {formData.soil_type || <span className="text-gray-400">—</span>}
+                      </div>
                     )}
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      District <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Navigation className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="text"
-                        name="district"
-                        value={formData.district}
-                        onChange={handleChange}
-                        readOnly={!isEditing}
-                        className={`pl-10 ${inputClass('district')}`}
-                        placeholder="e.g. Rajkot"
-                      />
+
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Farm Size (acres)
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Maximize className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
                     </div>
-                    {errors.district && (
-                      <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" /> {errors.district}
-                      </p>
-                    )}
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      name="farm_size"
+                      value={formData.farm_size}
+                      onChange={handleChange}
+                      readOnly={!isEditing}
+                      className={`pl-10 ${inputClass('farm_size')}`}
+                      placeholder="e.g. 5.5"
+                    />
                   </div>
-
-                  <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Main Crop <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                        <Sprout className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="text"
-                        value={cropSearch}
-                        onChange={(e) => {
-                          if (!isEditing) return;
-                          setCropSearch(e.target.value);
-                          setFormData(prev => ({ ...prev, main_crop: e.target.value }));
-                          setShowCropDropdown(true);
-                          if (errors.main_crop) setErrors(prev => ({ ...prev, main_crop: '' }));
-                        }}
-                        onFocus={() => isEditing && setShowCropDropdown(true)}
-                        onBlur={() => setTimeout(() => setShowCropDropdown(false), 200)}
-                        readOnly={!isEditing}
-                        className={`pl-10 ${inputClass('main_crop')}`}
-                        placeholder="Search crop..."
-                      />
-                      {isEditing && showCropDropdown && filteredCrops.length > 0 && (
-                        <motion.ul 
-                          initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                          className="absolute z-30 left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-xl max-h-48 overflow-y-auto"
-                        >
-                          {filteredCrops.map(crop => (
-                            <li
-                              key={crop}
-                              onMouseDown={() => {
-                                setCropSearch(crop);
-                                setFormData(prev => ({ ...prev, main_crop: crop }));
-                                setShowCropDropdown(false);
-                              }}
-                              className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-primary-50 dark:hover:bg-primary-900/30 text-gray-700 dark:text-gray-200 transition-colors ${formData.main_crop === crop ? 'bg-primary-50 dark:bg-primary-900/20 font-medium text-primary-700 dark:text-primary-400' : ''}`}
-                            >
-                              {crop}
-                            </li>
-                          ))}
-                        </motion.ul>
-                      )}
-                    </div>
-                    {errors.main_crop && (
-                      <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" /> {errors.main_crop}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Soil Type
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Layers className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      {isEditing ? (
-                        <select
-                          name="soil_type"
-                          value={formData.soil_type}
-                          onChange={handleChange}
-                          className={`pl-10 appearance-none ${inputClass('soil_type')}`}
-                        >
-                          <option value="">Select soil type</option>
-                          {SOIL_TYPES.map(s => (
-                            <option key={s} value={s}>{s}</option>
-                          ))}
-                        </select>
-                      ) : (
-                        <div className="pl-10 block w-full rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 text-gray-700 dark:text-gray-300 py-2.5 text-sm">
-                          {formData.soil_type || <span className="text-gray-400">—</span>}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Farm Size (acres)
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Maximize className={`h-5 w-5 ${isEditing ? 'text-gray-400 group-focus-within:text-primary-500' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        name="farm_size"
-                        value={formData.farm_size}
-                        onChange={handleChange}
-                        readOnly={!isEditing}
-                        className={`pl-10 ${inputClass('farm_size')}`}
-                        placeholder="e.g. 5.5"
-                      />
-                    </div>
-                    {errors.farm_size && (
-                      <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" /> {errors.farm_size}
-                      </p>
-                    )}
-                  </div>
+                  {errors.farm_size && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.farm_size}
+                    </p>
+                  )}
+                </div>
 
               </div>
             </div>

@@ -16,11 +16,11 @@ const WeatherDashboard = () => {
   // Location state
   const [location, setLocation] = useState({ lat: null, lon: null, name: 'Detecting location...' });
 
-  const fetchWeather = async (lat, lon, locName) => {
+  const fetchWeather = async (lat, lon, locName, forceRefresh = false) => {
     try {
       setLoading(true);
       setError(null);
-      const data = await weatherService.getCurrentWeather(lat, lon, locName);
+      const data = await weatherService.getCurrentWeather(lat, lon, locName, forceRefresh);
       setWeatherData(data);
     } catch (err) {
       setError("Failed to fetch weather data. Please try again.");
@@ -82,10 +82,17 @@ const WeatherDashboard = () => {
         
         <div className="flex space-x-3">
           <button 
-            onClick={requestLocation}
-            className="flex items-center px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
+            onClick={() => {
+              if (location.lat && location.lon) {
+                fetchWeather(location.lat, location.lon, location.name, true);
+              } else {
+                requestLocation();
+              }
+            }}
+            disabled={loading}
+            className="flex items-center px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors shadow-sm disabled:opacity-50"
           >
-            <FaSync className="mr-2" /> Refresh
+            <FaSync className={`mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
           </button>
         </div>
       </div>

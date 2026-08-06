@@ -56,10 +56,17 @@ body {
 .skiptranslate iframe, .goog-te-banner-frame {
   display: none !important;
 }
-#goog-gt-tt {
+#goog-gt-tt, .goog-te-balloon-frame {
   display: none !important;
 }
-.goog-text-highlight {
+.goog-text-highlight, 
+.goog-text-highlight:hover,
+font:hover,
+span:hover {
+  background: transparent !important;
   background-color: transparent !important;
   box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  text-decoration: none !important;
 }

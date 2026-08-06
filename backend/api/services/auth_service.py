@@ -3,13 +3,31 @@ from api.repositories.user_repository import UserRepository
 from api.utils.jwt_utils import generate_jwt
 import uuid
 import datetime
+import re
 
 class AuthService:
+    @staticmethod
+    def validate_password(password):
+        if len(password) < 8:
+            return False, "Password must be at least 8 characters long"
+        if not re.search(r'[A-Z]', password):
+            return False, "Password must contain at least one uppercase letter"
+        if not re.search(r'[a-z]', password):
+            return False, "Password must contain at least one lowercase letter"
+        if not re.search(r'[0-9]', password):
+            return False, "Password must contain at least one number"
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            return False, "Password must contain at least one special character"
+        return True, ""
     @staticmethod
     def register_user(email, password, full_name, role='farmer'):
         # Business logic for validation
         if not email or not password or not full_name:
             return False, "Please provide email, password, and full_name", None
+
+        is_valid_pwd, pwd_msg = AuthService.validate_password(password)
+        if not is_valid_pwd:
+            return False, pwd_msg, None
 
         # Check if user exists
         existing_user = UserRepository.find_by_email(email)
@@ -125,6 +143,10 @@ class AuthService:
     def reset_password(token, new_password):
         if not token or not new_password:
             return False, "Token and new password are required", None
+            
+        is_valid_pwd, pwd_msg = AuthService.validate_password(new_password)
+        if not is_valid_pwd:
+            return False, pwd_msg, None
             
         user = UserRepository.find_by_reset_token(token)
         if not user:

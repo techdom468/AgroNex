@@ -10,7 +10,7 @@ from .services import DiseaseDetectionService
 @parser_classes([MultiPartParser, FormParser])
 def predict_disease_view(request):
     """
-    Handles image upload, runs YOLOv8 inference, and saves to history.
+    Handles image upload, runs Gemini Vision inference, and saves to history.
     """
     user_id = request.user_payload.get('user_id')
     image_file = request.FILES.get('image')

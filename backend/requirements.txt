@@ -11,7 +11,6 @@ bcrypt==4.1.1
 
 # AI & Machine Learning
 google-genai==2.10.0
-ultralytics==8.4.82
 scikit-learn==1.8.0
 joblib==1.5.3
 pandas==3.0.1

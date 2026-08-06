@@ -16,7 +16,7 @@ const Register = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -24,30 +24,45 @@ const Register = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const validatePassword = (password) => {
+    if (password.length < 8) return "Password must be at least 8 characters long";
+    if (!/[A-Z]/.test(password)) return "Password must contain at least one uppercase letter";
+    if (!/[a-z]/.test(password)) return "Password must contain at least one lowercase letter";
+    if (!/[0-9]/.test(password)) return "Password must contain at least one number";
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return "Password must contain at least one special character";
+    return "";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
-    
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
+
+    const pwdError = validatePassword(formData.password);
+    if (pwdError) {
+      setError(pwdError);
+      return;
+    }
+
     setLoading(true);
-    
+
     const result = await register(formData.email, formData.password, formData.fullName);
-    
+
     if (result.success) {
       navigate('/dashboard');
     } else {
       setError(result.error);
     }
-    
+
     setLoading(false);
   };
 
@@ -77,7 +92,7 @@ const Register = () => {
                 <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <Input
                 id="fullName"
@@ -88,7 +103,7 @@ const Register = () => {
                 value={formData.fullName}
                 onChange={handleChange}
               />
-              
+
               <Input
                 id="email"
                 type="email"
@@ -98,7 +113,7 @@ const Register = () => {
                 value={formData.email}
                 onChange={handleChange}
               />
-              
+
               <Input
                 id="password"
                 type="password"
@@ -124,13 +139,13 @@ const Register = () => {
                   Create Account
                 </Button>
               </div>
-              
+
               <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-4">
                 By signing up, you agree to our <a href="#" className="text-primary-600 hover:underline">Terms of Service</a> and <a href="#" className="text-primary-600 hover:underline">Privacy Policy</a>.
               </p>
             </form>
           </Card>
-          
+
           <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{' '}
             <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 flex items-center justify-center gap-1 inline-flex">

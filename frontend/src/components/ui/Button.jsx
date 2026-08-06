@@ -41,7 +41,7 @@ const Button = ({
       {...props}
     >
       {isLoading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
-      {!isLoading && children}
+      {!isLoading && <span>{children}</span>}
     </motion.button>
   );
 };

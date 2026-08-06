@@ -1,6 +1,6 @@
 import datetime
 from bson.objectid import ObjectId
-from api.database.mongodb import get_db
+from api.database.mongo import get_db
 
 class UserRepository:
     @staticmethod

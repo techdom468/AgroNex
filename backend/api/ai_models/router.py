@@ -42,8 +42,37 @@ def call_gemini(question):
 
 # Mock Internal Services
 def get_weather_service(question):
-    # In a real app, parse location/date from question and call Weather API
-    return "Weather for your location: Sunny, 28°C. Humidity: 45%. No rain expected tomorrow."
+    """Fetch real weather data from Open-Meteo API (same as Dashboard)."""
+    try:
+        import requests
+        # Default: Ahmedabad coordinates (same as Dashboard)
+        lat, lon = 23.03, 72.55
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": lat,
+            "longitude": lon,
+            "current": "temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m",
+            "timezone": "auto"
+        }
+        response = requests.get(url, params=params, timeout=8)
+        response.raise_for_status()
+        data = response.json()
+        current = data.get("current", {})
+
+        temp = current.get("temperature_2m", "N/A")
+        humidity = current.get("relative_humidity_2m", "N/A")
+        wind = current.get("wind_speed_10m", "N/A")
+        rain = current.get("precipitation", 0)
+
+        return (
+            f"Current Weather for your location ({lat}°N, {lon}°E):\n"
+            f"🌡️ Temperature: {temp}°C\n"
+            f"💧 Humidity: {humidity}%\n"
+            f"💨 Wind Speed: {wind} km/h\n"
+            f"🌧️ Precipitation: {rain} mm\n"
+        )
+    except Exception as e:
+        return f"Unable to fetch live weather data right now. Please check the Weather Forecast section for accurate data."
 
 def get_government_scheme_service(question):
     return """Scheme Name: PM-KISAN
@@ -54,14 +83,52 @@ Official Website: pmkisan.gov.in
 Apply Link: https://pmkisan.gov.in/"""
 
 def get_crop_recommendation_service(question):
-    return "Recommended Crop: Wheat\nConfidence: 92%\nReason: Best suited for your soil type and upcoming winter season."
+    """
+    Routes crop recommendation questions to Gemini AI with agriculture expert context.
+    For ML-based prediction with soil parameters, use the /api/crop-ai/predict/ endpoint.
+    """
+    crop_prompt = f"""You are an expert agronomist and crop advisor working with AgroNex.
+A farmer is asking for crop recommendation advice.
+
+Farmer's question: {question}
+
+Please provide helpful crop recommendation advice covering:
+- Recommended crop(s) based on what the farmer mentioned (soil type, season, location, climate, etc.)
+- Why this crop is suitable
+- Best season/time to plant
+- Basic soil requirements
+- Expected yield or benefits
+
+If the farmer hasn't provided soil details (N, P, K, pH, temperature, humidity, rainfall),
+suggest them to use the "Crop Recommendation" feature in AgroNex app for an accurate ML-based prediction.
+
+Reply in the same language as the question (Gujarati/Hindi/English).
+"""
+    return call_gemini(crop_prompt)
 
 def get_disease_detection_service(question):
-    return """Disease: Leaf Blight
-Symptoms: Yellowing and browning of leaves with distinct halos.
-Chemical Treatment: Apply Mancozeb or Copper Oxychloride.
-Organic Treatment: Neem oil spray (5ml/L).
-Prevention: Ensure proper spacing for air circulation and avoid overhead watering."""
+    """
+    Routes disease/pest/symptom questions to Gemini API with plant pathologist context.
+    For image-based disease detection, use the /api/disease/predict/ endpoint instead.
+    """
+    disease_prompt = f"""You are an expert plant pathologist and agronomist working with AgroNex.
+A farmer is asking about a plant disease, pest, or symptom.
+
+Farmer's question: {question}
+
+Please provide a helpful answer covering:
+- Possible disease or pest name (if identifiable from description)
+- Symptoms to look for
+- Chemical treatment (if applicable)
+- Organic/natural treatment options
+- Prevention tips
+
+If the question is too vague to identify a specific disease, ask the farmer to upload a photo 
+using the Disease Detection feature in the AgroNex app for accurate AI-powered diagnosis.
+
+Reply in the same language as the question (Gujarati/Hindi/English).
+"""
+    return call_gemini(disease_prompt)
 
 
 def route_question(question):

@@ -1,7 +1,7 @@
 import datetime
 import logging
 from bson.objectid import ObjectId
-from api.database.mongodb import get_db
+from api.database.mongo import get_db
 from schemes.adapters.pm_kisan_adapter import PMKisanAdapter
 from schemes.adapters.pmfby_adapter import PMFBYAdapter
 from schemes.adapters.pm_kusum_adapter import PMKusumAdapter

@@ -44,11 +44,11 @@ const LanguageSelector = ({ variant = 'navbar' }) => {
 
     // Set Google Translate cookie (translates from English 'en' to selected lang)
     document.cookie = `googtrans=/en/${langCode}; path=/`;
-    
+
     // Also set for domain to be safe
     const domain = window.location.hostname;
     document.cookie = `googtrans=/en/${langCode}; path=/; domain=${domain}`;
-    
+
     // Reload to apply translation reliably in React SPA
     window.location.reload();
   };
@@ -60,8 +60,8 @@ const LanguageSelector = ({ variant = 'navbar' }) => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 font-medium text-sm border-2
-          ${variant === 'navbar' 
-            ? 'bg-gray-900 text-white border-transparent hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700' 
+          ${variant === 'navbar'
+            ? 'bg-gray-900 text-white border-transparent hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700'
             : 'w-full bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100 hover:border-primary-300 dark:bg-primary-900/30 dark:text-primary-400 dark:border-primary-800/50 dark:hover:bg-primary-900/50 justify-between shadow-sm'
           }`}
       >
@@ -79,9 +79,8 @@ const LanguageSelector = ({ variant = 'navbar' }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`absolute z-50 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 ${
-              variant === 'navbar' ? 'right-0' : 'left-0 bottom-12'
-            }`}
+            className={`absolute z-50 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 ${variant === 'navbar' ? 'right-0' : 'left-0 bottom-12'
+              }`}
           >
             <div className="px-4 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
               Change Language
@@ -93,11 +92,10 @@ const LanguageSelector = ({ variant = 'navbar' }) => {
                   onClick={() => changeLanguage(lang.code)}
                   className="w-full text-left px-4 py-2.5 text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-3 transition-colors group"
                 >
-                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                    currentLang === lang.code 
-                      ? 'border-primary-500' 
+                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${currentLang === lang.code
+                      ? 'border-primary-500'
                       : 'border-gray-300 dark:border-gray-600 group-hover:border-primary-400'
-                  }`}>
+                    }`}>
                     {currentLang === lang.code && (
                       <div className="w-2 h-2 bg-primary-500 rounded-full" />
                     )}

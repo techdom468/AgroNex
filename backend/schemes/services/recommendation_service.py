@@ -1,6 +1,6 @@
 import logging
 from bson.objectid import ObjectId
-from api.database.mongodb import get_db
+from api.database.mongo import get_db
 from schemes.services.scheme_service import SchemeService
 
 logger = logging.getLogger(__name__)

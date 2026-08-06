@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.core.cache import cache
-from api.database.mongodb import get_db
+from api.database.mongo import get_db
 from .weather_api import fetch_weather_data
 from .rule_engine import WeatherRuleEngine
 
