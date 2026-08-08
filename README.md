@@ -80,6 +80,8 @@ AgroNex/
 ├── backend/               # Django Backend Application
 │   ├── api/               # Core business logic & AI models
 │   ├── core/              # Django project settings
+|   ├── schemes/           # Background tasks & schemes
+│   ├── requirements.txt   # Backend dependencies
 │   └── manage.py          # Django entry point
 ├── frontend/              # React + Vite Frontend Application
 │   ├── src/               # React components and pages
